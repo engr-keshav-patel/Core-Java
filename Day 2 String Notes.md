@@ -1,10 +1,5 @@
 # Day 2 — String, `equals()`, `hashCode()`, Immutability Notes
 
-> **Goal:** Master one of the highest-frequency Java interview areas: **String internals, equality, hashing, immutable design, and mutable string utilities**.
-> These notes are optimized for **GitHub Markdown**, **revision**, and **interview answers**.
-
----
-
 # 1) String Fundamentals
 
 ## ✅ What is String in Java
@@ -402,49 +397,4 @@ final class Employee {
 
 ---
 
-# 13) Day 2 Revision Cheatsheet
 
-## ⚡ Fast recall bullets
-
-* SCP stores literals
-* String immutable
-* `==` → ref
-* `equals()` → content
-* same equals → same hashCode
-* String best HashMap key
-* `intern()` → pool
-* StringBuilder → fast mutable
-* StringBuffer → thread-safe mutable
-* immutable class = final + no setter
-
----
-
-# 14) Interview Answer Framework
-
-For each String-related answer use:
-
-1. definition
-2. code example
-3. memory behavior
-4. why JVM designed this way
-5. collection use case
-6. trap note
-
-This makes your answer sound **senior-level**.
-
----
-
-# ✅ Day 2 Completion Checklist
-
-* [ ] String pool clear
-* [ ] immutable concept crystal clear
-* [ ] `==` vs `equals()`
-* [ ] `equals()` + `hashCode()` contract
-* [ ] StringBuilder vs StringBuffer
-* [ ] custom immutable class
-* [ ] HashMap key reasoning
-* [ ] common String coding practiced
-
----
-
-> **Next recommended topic:** Day 3 → Collections Framework, List/Set/Map internals, HashMap deep dive
