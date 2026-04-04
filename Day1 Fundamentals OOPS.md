@@ -488,12 +488,45 @@ Benefits of Inheritance:
 
 1) Single Inheritance
 
-In single inheritance, one child class inherits from one parent class.
+> In single inheritance, one child class inherits from one parent class.
 
 ```mermaid
 classDiagram
     User <|-- AdminUser
- ```   
+ ```
+
+3) Hierarchical Inheritance
+
+> Multiple child classes inherit from one parent class.
+
+Real-life Example
+* Vehicle → Car, Bike
+* Both car and bike are vehicles.
+
+```mermaid
+classDiagram
+    Vehicle <|-- Car
+    Vehicle <|-- Bike
+```
+
+5) Hybrid Inheritance
+
+> Combination of multiple inheritance types.
+
+
+This mixes hierarchical + multilevel.
+
+Real-life Example
+Vehicle → Car → ElectricCar
+Vehicle → Car → SportsCar
+
+```mermaid
+classDiagram
+    Vehicle <|-- Car
+    Car <|-- ElectricCar
+    Car <|-- SportsCar
+```
+
 ---
 
 # C) Polymorphism
