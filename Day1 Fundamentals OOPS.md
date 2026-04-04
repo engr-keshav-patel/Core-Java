@@ -555,8 +555,8 @@ classDiagram
 This mixes hierarchical + multilevel.
 
 Real-life Example
-Vehicle → Car → ElectricCar
-Vehicle → Car → SportsCar
+* Vehicle → Car → ElectricCar
+* Vehicle → Car → SportsCar
 
 ```mermaid
 classDiagram
