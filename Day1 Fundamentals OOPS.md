@@ -373,6 +373,13 @@ Common in:
 
 ## OOP Pillars
 
+```mermaid
+flowchart TD
+    A[4 Pillars of OOP] --> B[Encapsulation]
+    A --> C[Abstraction]
+    A --> D[Inheritance]
+    A --> E[Polymorphism]
+```
 
 ## A) Encapsulation
 
