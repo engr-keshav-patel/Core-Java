@@ -371,7 +371,7 @@ Common in:
 > Object-Oriented Programming (OOP) is a way of designing programs using classes and objects to represent real-world entities, making the code easier to understand, reuse, and maintain.
 ---
 
-# 5) OOP Pillars in Java
+## OOP Pillars
 
 
 ## A) Encapsulation
