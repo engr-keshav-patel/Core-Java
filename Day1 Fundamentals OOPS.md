@@ -426,48 +426,78 @@ class Account {
 
 ---
 
-## B) Abstraction
+## B) Inheritance
 
-* Hides implementation details
-* Shows only essential behavior
-* Achieved using:
+> Inheritance in Java is an OOP concept where one class acquires the properties and behaviors (fields + methods) of another.
+>It helps in code reusability, method overriding, and building parent-child relationships between classes.
 
-  * abstract class
-  * interface
+Real World Understanding
+
+Every user in a system has common details like:
+
+id
+name
+email
+login()
+
+An AdminUser also has these common features, plus extra abilities like:
+
+manageUsers()
+deleteAccount()
+generateReports()
+
+So instead of rewriting common fields and methods, AdminUser inherits from User.
+
+AdminUser IS-A User
+
+Example:
 
 ```java
-abstract class Vehicle {
-    abstract void start();
-}
-```
+class User {
+    String name = "Kiran";
+    String email = "kiran@gmail.com";
 
----
-
-## C) Inheritance
-
-* Child acquires parent properties
-* Promotes code reuse
-
-```java
-class Animal {
-    void sound() {}
+    void login() {
+        System.out.println(name + " logged in");
+    }
 }
 
-class Dog extends Animal {}
+class AdminUser extends User {
+    void manageUsers() {
+        System.out.println(name + " is managing users");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        AdminUser admin = new AdminUser();
+
+        admin.login();       // inherited method
+        admin.manageUsers(); // child method
+        System.out.println(admin.email); // inherited field
+    }
+}
 ```
+Benefits of Inheritance:
 
-### 📝 Remember
+> * **Code Reusability** → reuse parent class code in child classes
+> * **Method Overriding** → child can provide its own implementation
+> * **Easy Maintenance** → common code stays in one place
+> * **Supports Polymorphism** → runtime method calling becomes possible
 
-* Java supports:
+## Types of Inheritance in Java
 
-  * single
-  * multilevel
-  * hierarchical
-* No multiple inheritance with classes
+1) Single Inheritance
 
+In single inheritance, one child class inherits from one parent class.
+
+```mermaid
+classDiagram
+    User <|-- AdminUser
+ ```   
 ---
 
-# D) Polymorphism
+# C) Polymorphism
 
 ## Method Overloading vs Overriding
 
@@ -604,6 +634,21 @@ Because **overridden methods use runtime object type resolution via dynamic disp
 * JVM checks actual object at runtime
 * Method resolution happens dynamically
 * Very common Spring Boot proxy interview topic
+
+## D) Abstraction
+
+* Hides implementation details
+* Shows only essential behavior
+* Achieved using:
+
+  * abstract class
+  * interface
+
+```java
+abstract class Vehicle {
+    abstract void start();
+}
+```
 
 
 # 6) `this` vs `super`
