@@ -494,7 +494,45 @@ Benefits of Inheritance:
 classDiagram
     User <|-- AdminUser
  ```
+2) Multilevel Inheritance
 
+The class hierarchy can be:
+> User → Seller → PremiumSeller
+
+This is a perfect example of multilevel inheritance.
+
+* PremiumSeller IS-A Seller
+* Seller IS-A User
+
+So the last child class can use features from all parent levels.
+
+Real-Life E-commerce Understanding
+> User
+Every user has common features:
+* userId
+* name
+* email
+* login()
+
+> Seller
+A seller is also a user, so seller gets:
+* all user features
+* addProduct()
+* viewOrders()
+  
+> PremiumSeller
+Premium seller is a special seller, so it gets:
+* all seller features
+* premium support
+* featured listing
+* analytics dashboard
+
+```mermaid
+classDiagram
+    User <|-- Seller
+    Seller <|-- PremiumSeller
+ ```
+   
 3) Hierarchical Inheritance
 
 > Multiple child classes inherit from one parent class.
@@ -509,7 +547,7 @@ classDiagram
     Vehicle <|-- Bike
 ```
 
-5) Hybrid Inheritance
+4) Hybrid Inheritance
 
 > Combination of multiple inheritance types.
 
