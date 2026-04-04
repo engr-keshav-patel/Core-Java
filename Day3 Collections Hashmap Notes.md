@@ -177,7 +177,7 @@ Queue<Integer> pq = new PriorityQueue<>();
 
 ```mermaid
 flowchart TD
-    A[key.hashCode()] --> B[hash spread]
+    A["key.hashCode()"] --> B[hash spread]
     B --> C[bucket index]
     C --> D{bucket empty?}
     D -->|yes| E[insert node]
