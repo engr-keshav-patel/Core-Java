@@ -191,6 +191,7 @@ flowchart LR
 ```java
 Student s = new Student();
 ```
+---
 
 # 4) Class and Object
 
@@ -227,6 +228,7 @@ From one blueprint, we can create multiple houses.
 We use classes to:
 * achieve encapsulation
 * represent real-world entities
+---
 
 ## ✅ Object
 
@@ -240,10 +242,11 @@ Student s = new Student();
 * s1 reference variable is created in stack memory
 * object is created in heap memory
 * instance variables belong to object memory
+---
 
-* In Java, there are four standard ways to create objects.
+## In Java, there are four standard ways to create objects.
 
-✅ 1) Using the new Keyword (Most Common)
+# ✅ 1) Using the new Keyword (Most Common)
 
 This is the most frequently used way.
 
@@ -253,6 +256,7 @@ allocates memory in the heap
 calls the constructor
 returns the object reference
 Example
+```java
 class Student {
     String name;
 }
@@ -262,15 +266,18 @@ public class Main {
         Student s1 = new Student();
     }
 }
+```
+
 This is the most common and recommended way to create objects.
 
-✅ 2) Using newInstance() Method
+# ✅ 2) Using newInstance() Method
 
 We can create objects using reflection.
 
 This method creates the object dynamically at runtime.
 
 Example
+```java
 class Student {
 }
 
@@ -279,7 +286,7 @@ public class Main {
         Student s1 = Student.class.getDeclaredConstructor().newInstance();
     }
 }
-
+```
 Used when the class name is known only at runtime.
 
 Very common in:
@@ -289,13 +296,14 @@ Hibernate
 JDBC drivers
 Reflection APIs
 
-✅ 3) Using clone() Method
+# ✅ 3) Using clone() Method
 
 We can create a new object by copying an existing object.
 
 This is called object cloning.
 
 Example
+```java
 class Student implements Cloneable {
     String name = "Rahul";
 
@@ -310,26 +318,29 @@ public class Main {
         Student s2 = (Student) s1.clone();
     }
 }
-
+```
 This creates a duplicate object.
 
-✅ 4) Using Deserialization
+# ✅ 4) Using Deserialization
 
 When an object is read from a file or network stream, Java creates it automatically.
 
 This is called deserialization.
 
 Example
+```java
 ObjectInputStream in = new ObjectInputStream(new FileInputStream("data.txt"));
 Student s1 = (Student) in.readObject();
-
+```
 Common in:
 caching
 distributed systems
 microservices
 file storage
 
-✅ Difference Between Class and Object
+---
+
+# ✅ Difference Between Class and Object
 
 | Point | Class | Object |
 |---|---|---|
@@ -338,11 +349,14 @@ file storage
 | Memory | Memory for instance variables is not allocated when the class is declared. | Memory is allocated in the heap when the object is created. |
 | Example | `class Student {}` | `Student s1 = new Student();` |
 
-✅ Data Members and Methods
+---
+
+# ✅ Data Members and Methods
+
 In Java, a class is mainly made up of data members and methods.
 
-Data members define the state or properties of an object.
-Methods define the behavior or actions that the object can perform.
+* Data members define the state or properties of an object.
+* Methods define the behavior or actions that the object can perform.
 
 Example:
 ```java
@@ -364,18 +378,19 @@ class Car {
 
 In the above example:
 
-Data Members
+* Data Members
 These store the car’s properties:
 * brand
 * color
 * speed
 
-Methods
+* Methods
 These define what the car can do:
 * start()
 * stop()
 These represent the behavior of the car.
 
+---
 # 5) OOP Pillars in Java
 
 ---
