@@ -152,7 +152,7 @@ flowchart TD
 
 ---
 
-⚡ JIT Basics
+## ⚡ JIT Basics
 
 JIT = **Just In Time Compiler**
 
@@ -165,15 +165,6 @@ flowchart TD
     C -->|No| F[Interpret Continue]
 ```
 
-🧠 Java Memory Overview (Heap + Stack)
-
-```mermaid
-flowchart LR
-    A[JVM Memory] --> B[Heap]
-    A --> C[Stack]
-    A --> D[Method Area]
-```
-
 ## ✅ Heap vs Stack
 
 | Feature    | Heap    | Stack           |
@@ -183,12 +174,6 @@ flowchart LR
 | Managed by | GC      | Automatic       |
 | Speed      | Slower  | Faster          |
 
-### Example
-
-```java
-Student s = new Student();
-```
----
 
 # 4) Class and Object
 
