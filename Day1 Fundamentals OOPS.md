@@ -486,7 +486,7 @@ Benefits of Inheritance:
 
 ## Types of Inheritance in Java
 
-1) Single Inheritance
+### 1) Single Inheritance
 
 > In single inheritance, one child class inherits from one parent class.
 
@@ -494,7 +494,7 @@ Benefits of Inheritance:
 classDiagram
     User <|-- AdminUser
  ```
-2) Multilevel Inheritance
+### 2) Multilevel Inheritance
 
 The class hierarchy can be:
 > User → Seller → PremiumSeller
@@ -533,7 +533,7 @@ classDiagram
     Seller <|-- PremiumSeller
  ```
    
-3) Hierarchical Inheritance
+### 3) Hierarchical Inheritance
 
 > Multiple child classes inherit from one parent class.
 
@@ -547,7 +547,7 @@ classDiagram
     Vehicle <|-- Bike
 ```
 
-4) Hybrid Inheritance
+### 4) Hybrid Inheritance
 
 > Combination of multiple inheritance types.
 
