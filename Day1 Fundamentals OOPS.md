@@ -366,17 +366,35 @@ Common in:
 
 ---
 
+# what is object oriented programming
+
+> Object-Oriented Programming (OOP) is a programming approach that organizes code using classes and objects to model real-world entities.
+---
+
 # 5) OOP Pillars in Java
 
----
 
 ## A) Encapsulation
 
-* Binding data + methods together
-* Achieved using:
+> Encapsulation is one of the core OOP principles in Java.
 
-  * private fields
-  * public getters/setters
+> Encapsulation is the process wrapping data (variables) and methods into a single unit called class, and restricting direct access to the data.
+> This is achieved by:
+> * declaring variables as private
+> * providing access through public getter and setter methods
+
+# ✅ Real-Life Example
+
+Think of a bank account.
+
+You cannot directly change the account balance from outside.
+You must use methods like:
+
+deposit()
+withdraw()
+getBalance()
+
+This is encapsulation + data hiding.
 
 ```java
 class Account {
@@ -392,11 +410,12 @@ class Account {
 }
 ```
 
-### ✅ Benefits
+# ✅ Benefits of Encapsulation in Java
 
-* data hiding
-* controlled access
-* validation support
+> **Data Hiding** - Protects data from direct unauthorized access by making variables private.
+> **Better Security** - Allows controlled access to data through getter and setter methods.
+> **Improved Maintainability** - Internal implementation can be changed without affecting external code.
+> **Better Flexibility and Reusability** - Makes the code modular, reusable, and easier to manage in large applications.
 
 ---
 
