@@ -278,12 +278,12 @@ class Car {
 
 In the above example:
 
-* Data Members : These store the car’s properties:
+>Data Members : These store the car’s properties:
 * brand
 * color
 * speed
 
-* Methods : These define what the car can do:
+>Methods : These define what the car can do:
 * start()
 * stop()
 These represent the behavior of the car.
