@@ -493,7 +493,7 @@ class User {
 
 ---
 
-# 9) Fail-Fast vs Fail-Safe
+# 9) Fail-Fast vs Fail-Safe Iterator
 
 ## ✅ Fail-Fast
 
