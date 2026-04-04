@@ -1,8 +1,5 @@
 # Day 1 — Core Java Fundamentals + OOP Foundation Notes
 
-> **Goal:** Build a rock-solid foundation for Java interviews and backend development.
-> These notes are optimized for **GitHub Markdown**, **revision**, and **interview answers**.
-
 ---
 
 # 1) Java Fundamentals
@@ -197,11 +194,11 @@ Student s = new Student();
 
 ## ✅ Class
 
-* A class in Java is a blueprint or template used to create objects.
+> A class in Java is a blueprint or template used to create objects.
 
-It defines:
-* state (variables / data members) → what an object has
-* behavior (methods) → what an object does
+>It defines:
+>* state (variables / data members) → what an object has
+>* behavior (methods) → what an object does
 
 * A class itself is only a logical definition.
 
@@ -232,8 +229,8 @@ We use classes to:
 
 ## ✅ Object
 
-* An object in Java is an instance of a class.
-* A class acts as a blueprint, and an object is the actual entity created from that blueprint at runtime.
+>* An object in Java is an instance of a class.
+>* A class acts as a blueprint, and an object is the actual entity created from that blueprint at runtime.
 
 When we write:
 ```java
@@ -257,10 +254,10 @@ Student s = new Student();
 
 # ✅ Data Members and Methods
 
-In Java, a class is mainly made up of data members and methods.
+>In Java, a class is mainly made up of data members and methods.
 
-* Data members define the state or properties of an object.
-* Methods define the behavior or actions that the object can perform.
+>* Data members define the state or properties of an object.
+>* Methods define the behavior or actions that the object can perform.
 
 Example:
 ```java
@@ -282,14 +279,12 @@ class Car {
 
 In the above example:
 
-* Data Members
-These store the car’s properties:
+* Data Members : These store the car’s properties:
 * brand
 * color
 * speed
 
-* Methods
-These define what the car can do:
+* Methods : These define what the car can do:
 * start()
 * stop()
 These represent the behavior of the car.
