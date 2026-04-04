@@ -419,6 +419,3 @@ For each collections answer use:
 4. internal DS used
 5. best use case
 6. trap edge case
-
-
-> **Next recommended topic:** Day 4 → Exception Handling, Custom Exceptions, `try-with-resources`, `finally`, checked vs unchecked
