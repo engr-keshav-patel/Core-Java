@@ -195,7 +195,6 @@ Student s = new Student();
 ## ✅ Class
 
 > A class in Java is a blueprint or template used to create objects.
-
 >It defines:
 >* state (variables / data members) → what an object has
 >* behavior (methods) → what an object does
@@ -295,7 +294,7 @@ These represent the behavior of the car.
 
 # ✅ 1) Using the new Keyword (Most Common)
 
-This is the most frequently used way.
+>This is the most frequently used way.
 
 When we use new, Java:
 
@@ -315,13 +314,10 @@ public class Main {
 }
 ```
 
-This is the most common and recommended way to create objects.
-
 # ✅ 2) Using newInstance() Method
 
-We can create objects using reflection.
-
-This method creates the object dynamically at runtime.
+> We can create objects using reflection.
+> This method creates the object dynamically at runtime.
 
 Example
 ```java
@@ -334,7 +330,7 @@ public class Main {
     }
 }
 ```
-Used when the class name is known only at runtime.
+> Used when the class name is known only at runtime.
 
 Very common in:
 
@@ -345,9 +341,8 @@ Reflection APIs
 
 # ✅ 3) Using clone() Method
 
-We can create a new object by copying an existing object.
-
-This is called object cloning.
+> We can create a new object by copying an existing object.
+> This is called object cloning.
 
 Example
 ```java
@@ -366,13 +361,12 @@ public class Main {
     }
 }
 ```
-This creates a duplicate object.
+> This creates a duplicate object.
 
 # ✅ 4) Using Deserialization
 
-When an object is read from a file or network stream, Java creates it automatically.
-
-This is called deserialization.
+> When an object is read from a file or network stream, Java creates it automatically.
+> This is called deserialization.
 
 Example
 ```java
