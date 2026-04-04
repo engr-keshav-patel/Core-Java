@@ -163,27 +163,267 @@ Queue<Integer> pq = new PriorityQueue<>();
 
 ---
 
-# 6) `HashMap` Internal Working ⭐
+# ⭐ `HashMap` Internal Working (Java 8+)
 
-## ✅ Put flow
+
+# 1) Core Internal Idea
+
+`HashMap` stores data in **key-value pairs**.
+
+Internally it uses:
+
+* **array of buckets**
+* each bucket stores:
+
+  * single node
+  * linked list of nodes
+  * Red-Black Tree (Java 8+)
+
+## ✅ Internal structure
+
+```java
+Node<K,V>[] table;
+```
+
+Each bucket contains nodes like:
+
+```java
+static class Node<K,V> {
+    final int hash;
+    final K key;
+    V value;
+    Node<K,V> next;
+}
+```
+
+## 📝 Points to remember
+
+* default capacity = **16**
+* default load factor = **0.75**
+* average lookup = **O(1)**
+* Java 8 improves heavy collisions with treeification
+
+---
+
+# 2) Mermaid Diagram — Internal Bucket Structure
+
+```mermaid
+flowchart LR
+    A[Bucket 0]
+    B[Bucket 1]
+    C[Bucket 2]
+    D[Bucket 3]
+
+    C --> N1[Node key=A value=10]
+    N1 --> N2[Node key=B value=20]
+    N2 --> N3[TreeNode after threshold]
+```
+
+## 🎯 Understanding
+
+* bucket array is primary storage
+* same bucket may contain multiple nodes
+* collisions chain nodes together
+* large chains convert into tree nodes
+
+---
+
+# 3) `put(key, value)` Internal Working
+
+## ✅ Step-by-step flow
 
 1. compute `hashCode()` of key
-2. convert to bucket index
-3. if bucket empty → insert
-4. if collision → linked list / tree node
-5. duplicate key → `equals()` check + replace value
+2. spread hash for better distribution
+3. calculate bucket index
+4. if bucket empty → insert node
+5. if collision occurs:
 
-## Mermaid Internal Flow
+   * compare key using `equals()`
+   * same key → replace value
+   * different key → add new node
+6. if chain length > **8** and capacity >= **64**
+
+   * convert linked list → **Red-Black Tree**
+
+---
+
+# 4) Mermaid Diagram — `put()` Flow
 
 ```mermaid
 flowchart TD
-    A["key.hashCode()"] --> B[hash spread]
-    B --> C[bucket index]
-    C --> D{bucket empty?}
-    D -->|yes| E[insert node]
-    D -->|no| F[equals check]
-    F --> G[replace or chain]
+    A[put key value] --> B[Compute hashCode]
+    B --> C[Find bucket index]
+    C --> D{Bucket empty?}
+
+    D -->|Yes| E[Insert new node]
+    D -->|No| F[Compare using equals]
+
+    F --> G{Same key?}
+    G -->|Yes| H[Replace old value]
+    G -->|No| I[Append new node]
+
+    I --> J{Chain > 8 and capacity >= 64?}
+    J -->|Yes| K[Convert to Red Black Tree]
+    J -->|No| L[Keep linked list]
 ```
+
+## 📝 Important trap point
+
+> `HashMap` uses **`hashCode()` for bucket selection** and **`equals()` for exact key match**.
+
+---
+
+# 5) Bucket Index Calculation
+
+## ✅ Formula
+
+```java
+index = (n - 1) & hash;
+```
+
+Where:
+
+* `n` = current array size
+* default = `16`
+
+## ✅ Why this formula
+
+* faster than modulo `%`
+* works best when capacity is power of 2
+
+## 📝 Must remember
+
+Java keeps capacity in **power of 2** for optimized bit masking.
+
+---
+
+# 6) Collision Handling
+
+## ✅ What is collision
+
+When multiple keys land in the **same bucket index**.
+
+## Example
+
+```java
+map.put("FB", 1);
+map.put("Ea", 2);
+```
+
+These are famous collision examples.
+
+## ✅ Collision resolution
+
+* Java 7 → linked list only
+* Java 8 → linked list → tree after threshold
+
+## Mermaid Diagram
+
+```mermaid
+flowchart LR
+    A[Bucket 5] --> B[Node FB]
+    B --> C[Node Ea]
+    C --> D[Node More Keys]
+```
+
+---
+
+# 7) Treeification (Java 8+)
+
+## ✅ When treeification happens
+
+* bucket chain length > **8**
+* capacity >= **64**
+
+## ✅ Thresholds
+
+* treeify threshold = **8**
+* untreeify threshold = **6**
+* min treeify capacity = **64**
+
+## 🎯 Why introduced
+
+Before Java 8:
+
+* worst case = **O(n)**
+
+After Java 8:
+
+* worst case = **O(log n)**
+
+## 📝 Interview note
+
+This is a **very high-frequency interview question**.
+
+---
+
+# 8) `get(key)` Internal Working
+
+## ✅ Flow
+
+1. compute hash
+2. locate bucket
+3. compare first node
+4. if list → traverse
+5. if tree → tree search
+6. return matched value
+
+---
+
+# 9) Mermaid Diagram — `get()` Flow
+
+```mermaid
+flowchart TD
+    A[get key] --> B[Compute hash]
+    B --> C[Find bucket]
+    C --> D{First node match?}
+
+    D -->|Yes| E[Return value]
+    D -->|No| F{List or Tree?}
+
+    F -->|List| G[Traverse linked nodes]
+    F -->|Tree| H[Tree search]
+
+    G --> E
+    H --> E
+```
+
+---
+
+# 10) Time Complexity
+
+| Operation  | Average |    Worst |
+| ---------- | ------: | -------: |
+| `put()`    |    O(1) | O(log n) |
+| `get()`    |    O(1) | O(log n) |
+| `remove()` |    O(1) | O(log n) |
+
+## 📝 Why average is O(1)
+
+Because good hash distribution spreads keys across buckets evenly.
+
+---
+
+# 11) Most Important Interview Answer
+
+> `HashMap` internally uses an array of buckets. It computes `hashCode()` to find the bucket and uses `equals()` to locate the exact key. In Java 8+, long collision chains are converted into a Red-Black Tree after 8 nodes to improve worst-case performance.
+
+---
+
+# 12) Must Remember Trap Points
+
+## ✅ Important bullets
+
+* one null key allowed
+* multiple null values allowed
+* not thread-safe
+* insertion order not guaranteed
+* `equals()` + `hashCode()` both required
+* treeify threshold = **8**
+* resize threshold = **capacity × 0.75**
+* capacity grows in powers of 2
+
+---
 
 ## ✅ Java 8 optimization
 
