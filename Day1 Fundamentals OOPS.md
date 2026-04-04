@@ -412,10 +412,10 @@ class Account {
 
 # ✅ Benefits of Encapsulation in Java
 
-> **Data Hiding** - Protects data from direct unauthorized access by making variables private.
-> **Better Security** - Allows controlled access to data through getter and setter methods.
-> **Improved Maintainability** - Internal implementation can be changed without affecting external code.
-> **Better Flexibility and Reusability** - Makes the code modular, reusable, and easier to manage in large applications.
+> * **Data Hiding** - Protects data from direct unauthorized access by making variables private.
+> * **Better Security** - Allows controlled access to data through getter and setter methods.
+> * **Improved Maintainability** - Internal implementation can be changed without affecting external code.
+> * **Better Flexibility and Reusability** - Makes the code modular, reusable, and easier to manage in large applications.
 
 ---
 
