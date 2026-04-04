@@ -244,6 +244,58 @@ Student s = new Student();
 * instance variables belong to object memory
 ---
 
+# ✅ Difference Between Class and Object
+
+| Point | Class | Object |
+|---|---|---|
+| Definition | A class is a blueprint or template that defines variables and methods. | An object is a runtime instance of a class that holds actual values. |
+| Nature | It is a logical entity and does not represent a real memory instance by itself. | It is a real entity created at runtime and occupies memory. |
+| Memory | Memory for instance variables is not allocated when the class is declared. | Memory is allocated in the heap when the object is created. |
+| Example | `class Student {}` | `Student s1 = new Student();` |
+
+---
+
+# ✅ Data Members and Methods
+
+In Java, a class is mainly made up of data members and methods.
+
+* Data members define the state or properties of an object.
+* Methods define the behavior or actions that the object can perform.
+
+Example:
+```java
+class Car {
+    String brand;   // data member
+    String color;   // data member
+    int speed;      // data member
+
+    void start() {  // method
+        System.out.println("Car started");
+    }
+
+    void stop() {   // method
+        System.out.println("Car stopped");
+    }
+}
+```
+✅ Explanation
+
+In the above example:
+
+* Data Members
+These store the car’s properties:
+* brand
+* color
+* speed
+
+* Methods
+These define what the car can do:
+* start()
+* stop()
+These represent the behavior of the car.
+
+---
+
 ## In Java, there are four standard ways to create objects.
 
 # ✅ 1) Using the new Keyword (Most Common)
@@ -340,57 +392,6 @@ file storage
 
 ---
 
-# ✅ Difference Between Class and Object
-
-| Point | Class | Object |
-|---|---|---|
-| Definition | A class is a blueprint or template that defines variables and methods. | An object is a runtime instance of a class that holds actual values. |
-| Nature | It is a logical entity and does not represent a real memory instance by itself. | It is a real entity created at runtime and occupies memory. |
-| Memory | Memory for instance variables is not allocated when the class is declared. | Memory is allocated in the heap when the object is created. |
-| Example | `class Student {}` | `Student s1 = new Student();` |
-
----
-
-# ✅ Data Members and Methods
-
-In Java, a class is mainly made up of data members and methods.
-
-* Data members define the state or properties of an object.
-* Methods define the behavior or actions that the object can perform.
-
-Example:
-```java
-class Car {
-    String brand;   // data member
-    String color;   // data member
-    int speed;      // data member
-
-    void start() {  // method
-        System.out.println("Car started");
-    }
-
-    void stop() {   // method
-        System.out.println("Car stopped");
-    }
-}
-```
-✅ Explanation
-
-In the above example:
-
-* Data Members
-These store the car’s properties:
-* brand
-* color
-* speed
-
-* Methods
-These define what the car can do:
-* start()
-* stop()
-These represent the behavior of the car.
-
----
 # 5) OOP Pillars in Java
 
 ---
