@@ -334,10 +334,10 @@ public class Main {
 
 Very common in:
 
-Spring Framework
-Hibernate
-JDBC drivers
-Reflection APIs
+*Spring Framework
+*Hibernate
+*JDBC drivers
+*Reflection APIs
 
 # ✅ 3) Using clone() Method
 
@@ -374,10 +374,10 @@ ObjectInputStream in = new ObjectInputStream(new FileInputStream("data.txt"));
 Student s1 = (Student) in.readObject();
 ```
 Common in:
-caching
-distributed systems
-microservices
-file storage
+*caching
+*distributed systems
+*microservices
+*file storage
 
 ---
 
