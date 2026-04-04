@@ -429,11 +429,6 @@ Because good hash distribution spreads keys across buckets evenly.
 
 * if bucket nodes > **8** → linked list becomes **Red-Black Tree**
 * improves worst-case from **O(n)** to **O(log n)**
-
-## 📝 Most important interview line
-
-> `HashMap` uses **hashCode for bucket selection** and **equals for exact key match**.
-
 ---
 
 # 7) Collision Handling
