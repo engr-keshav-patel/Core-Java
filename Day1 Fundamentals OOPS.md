@@ -431,7 +431,7 @@ class Account {
 > Inheritance in Java is an OOP concept where one class acquires the properties and behaviors (fields + methods) of another.
 >It helps in code reusability, method overriding, and building parent-child relationships between classes.
 
-# Real World Understanding
+### Real World Understanding
 
 Every user in a system has common details like:
 * id
@@ -439,7 +439,7 @@ Every user in a system has common details like:
 * email
 * login()
 
-# An AdminUser also has these common features, plus extra abilities like:
+### An AdminUser also has these common features, plus extra abilities like:
 
 * manageUsers()
 * deleteAccount()
