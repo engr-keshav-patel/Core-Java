@@ -1,4 +1,4 @@
-# 🔥 JAVA MULTITHREADING — IN-DEPTH INTERVIEW ANSWERS
+# 🔥 JAVA MULTITHREADING
 
 ## 1️⃣ Basics of Multithreading
 
@@ -113,60 +113,54 @@ Multithreading is used to:
 * Error analysis
 
 #### ➤ When Should We Avoid Multithreading?
-Simple sequential tasks
-Heavy shared mutable state
-Low-resource systems
-When synchronization overhead > benefit
+* Simple sequential tasks
+* Heavy shared mutable state
+* Low-resource systems
+* When synchronization overhead > benefit
 
-👉 Golden rule:
+> [!NOTE]
+> 👉 Golden rule:
+> Don’t add multithreading unless you need concurrency.
 
-Don’t add multithreading unless you need concurrency.
+### ✅ Q3. Advantages and Disadvantages of Multithreading
 
-✅ Q3. Advantages and Disadvantages of Multithreading
-✅ Advantages
-1️⃣ Better CPU Utilization
-CPU doesn’t stay idle during IO wait
-2️⃣ Improved Responsiveness
-UI remains responsive
-Background tasks run asynchronously
-3️⃣ High Throughput
-More requests processed simultaneously
-4️⃣ Resource Sharing
-Threads share heap → less memory usage
-❌ Disadvantages
-➤ Context Switching Cost
-CPU switches between threads
-Too many threads → performance drop
+#### ✅ Advantages
+* 1️⃣ Better CPU Utilization
+* CPU doesn’t stay idle during IO wait
+* UI remains responsive
+* Background tasks run asynchronously
+* 3️⃣ High Throughput
+* More requests processed simultaneously
+* 4️⃣ Resource Sharing
+* Threads share heap → less memory usage
+#### ❌ Disadvantages
+* ➤ Context Switching Cost
+* CPU switches between threads
+* Too many threads → performance drop
+  
+> [!NOTE]
+> Excessive threads can make application slower, not faster.
 
-👉 Interview line:
+* ➤ Memory Overhead
+* Each thread has its own stack
+* Thousands of threads → OutOfMemoryError
+* ➤ Debugging Complexity
+* Bugs are non-deterministic
+* Issues may not reproduce consistently
+* ➤ Deadlocks & Race Conditions
+* Race Condition
+* count++;
+* Not atomic
+* Leads to inconsistent results
+* Deadlock
+* Threads waiting forever on each other
 
-Excessive threads can make application slower, not faster.
+> [!NOTE]
+>👉 Most production bugs in multithreading come from improper synchronization
 
-➤ Memory Overhead
-Each thread has its own stack
-Thousands of threads → OutOfMemoryError
-➤ Debugging Complexity
-Bugs are non-deterministic
-Issues may not reproduce consistently
-➤ Deadlocks & Race Conditions
-Race Condition
-count++;
-Not atomic
-Leads to inconsistent results
-Deadlock
-Threads waiting forever on each other
-
-👉 Most production bugs in multithreading come from improper synchronization
-
-🎯 INTERVIEW CLOSING STATEMENT (VERY IMPORTANT)
-
-If interviewer asks:
-
-“Explain multithreading in Java”
-
-End with:
-
-Multithreading improves performance and responsiveness, but it must be used carefully because shared memory introduces concurrency issues like race conditions, deadlocks, and visibility problems.
+> [!NOTE]
+> * Multithreading improves performance and responsiveness, but it must be used carefully because shared memory introduces
+> concurrency issues like race conditions, deadlocks, and visibility problems.
 
 ---
 ---
