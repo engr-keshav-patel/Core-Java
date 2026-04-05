@@ -4,88 +4,87 @@
 ---
 
 # 1️⃣ Basics of Multithreading
-Q1. What is a thread?
+* Q1. What is a thread?
+  
+* Follow-ups
+* Difference between process and thread
+* Why threads are called lightweight processes?
+* Can a Java program run without threads?
+* Is main() a thread?
+* Who creates the main thread?
+  
+* Q2. Why do we need multithreading?
 
-Follow-ups
+* Follow-ups
+* Difference between multitasking and multithreading
+* CPU-bound vs IO-bound tasks
+* Real-world examples (browser, server, IDE)
+* When should we avoid multithreading?
+  
+* Q3. Advantages and disadvantages of multithreading
 
-Difference between process and thread
-Why threads are called lightweight processes?
-Can a Java program run without threads?
-Is main() a thread?
-Who creates the main thread?
-Q2. Why do we need multithreading?
-
-Follow-ups
-
-Difference between multitasking and multithreading
-CPU-bound vs IO-bound tasks
-Real-world examples (browser, server, IDE)
-When should we avoid multithreading?
-Q3. Advantages and disadvantages of multithreading
-
-Follow-ups
-
-Context switching cost
-Memory overhead
-Debugging complexity
-Deadlocks & race conditions
+* Follow-ups
+* Context switching cost
+* Memory overhead
+* Debugging complexity
+* Deadlocks & race conditions
 
 ---
 
 # 2️⃣ Thread Creation
 
-Q4. Ways to create a thread in Java
-Extending Thread
-Implementing Runnable
-Using Callable
-Using ExecutorService
+* Q4. Ways to create a thread in Java
+* Extending Thread
+* Implementing Runnable
+* Using Callable
+* Using ExecutorService
 
-Follow-ups
+* Follow-ups
+* Difference between Thread vs Runnable
+* Why Runnable is preferred?
+* Can we extend multiple threads?
+* Which approach is best and why?
+  
+* Q5. Difference between Runnable and Callable
+* Follow-ups
 
-Difference between Thread vs Runnable
-Why Runnable is preferred?
-Can we extend multiple threads?
-Which approach is best and why?
-Q5. Difference between Runnable and Callable
+* Return value
+* Exception handling
+* How to get result from Callable?
+* What is Future?
+* Can Runnable throw checked exception?
+  
+* Q6. What happens internally when we call start()?
 
-Follow-ups
+* Follow-ups
 
-Return value
-Exception handling
-How to get result from Callable?
-What is Future?
-Can Runnable throw checked exception?
-Q6. What happens internally when we call start()?
-
-Follow-ups
-
-Difference between start() and run()
-Can we call start() twice?
-What exception is thrown?
-Who allocates stack memory?
+* Difference between start() and run()
+* Can we call start() twice?
+* What exception is thrown?
+* Who allocates stack memory?
 
 ---
 
 # 3️⃣ Thread Lifecycle
 
-Q7. Explain thread lifecycle in Java
+* Q7. Explain thread lifecycle in Java
 
-States:
+* States:
 
-NEW
-RUNNABLE
-BLOCKED
-WAITING
-TIMED_WAITING
-TERMINATED
+* NEW
+* RUNNABLE
+* BLOCKED
+* WAITING
+* TIMED_WAITING
+* TERMINATED
 
-Follow-ups
+* Follow-ups
 
-Difference between BLOCKED and WAITING
-When does thread go to BLOCKED?
-Which state occurs during sleep()?
-Which state occurs during wait()?
-Q8. Difference between sleep() and wait()
+* Difference between BLOCKED and WAITING
+* When does thread go to BLOCKED?
+* Which state occurs during sleep()?
+* Which state occurs during wait()?
+* Q8. Difference between sleep() and wait()
 
 Follow-ups
 
