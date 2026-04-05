@@ -1,17 +1,14 @@
-🔥 JAVA MULTITHREADING — IN-DEPTH INTERVIEW ANSWERS
+# 🔥 JAVA MULTITHREADING — IN-DEPTH INTERVIEW ANSWERS
 
-1️⃣ Basics of Multithreading
-✅ Q1. What is a Thread?
-Interview-Level Answer
+## 1️⃣ Basics of Multithreading
 
-A thread is the smallest unit of execution inside a process.
-In Java, a thread represents an independent path of execution that shares the same memory space (heap) with other threads of the same process but has its own stack.
+### ✅ Q1. What is a Thread?
 
-In simple words:
-A process is what is running,
-a thread is how many things inside it are running at the same time.
+>  A thread is the smallest unit of execution inside a process.
+> In Java, a thread represents an independent path of execution that shares the same memory space (heap) with other threads > of the same process but has its own stack.
 
-Example
+#### Example
+```java
 class MyTask extends Thread {
     public void run() {
         System.out.println("Task running in thread: " + Thread.currentThread().getName());
@@ -24,96 +21,98 @@ public class Test {
         new MyTask().start();
     }
 }
-
+```
 Here:
 
 One process → JVM
 Two threads → executing run() concurrently
-🔍 Follow-ups
-➤ Difference between Process and Thread
-Aspect	Process	Thread
-Definition	Program in execution	Lightweight execution unit
-Memory	Separate memory	Shared memory
-Communication	Expensive (IPC)	Cheap (shared heap)
-Creation cost	High	Low
-Failure impact	Process crash	Thread crash
 
-👉 Interview tip:
-Threads are faster because they share memory, but this also introduces concurrency bugs.
+#### 🔍 Follow-ups
 
-➤ Why are threads called lightweight processes?
-Threads don’t need separate memory
-Creation and destruction is cheap
-Context switching is faster
-They reuse process resources
+#### ➤ Difference between Process and Thread
+| Aspect | Process | Thread |
+|---|---|---|
+| Definition | Program in execution | Lightweight execution unit |
+| Memory | Separate memory | Shared memory |
+| Communication | Expensive (IPC) | Cheap (shared heap) |
+| Creation Cost | High | Low |
+| Failure Impact | Process crash | Thread crash |
 
-Hence → lightweight
 
-➤ Can a Java program run without threads?
+> [!TIP]
+> Threads are faster because they share memory, but this also introduces concurrency bugs.
 
+#### ➤ Why are threads called lightweight processes?
+* Threads don’t need separate memory
+* Creation and destruction is cheap
+* Context switching is faster
+* They reuse process resources
+
+* Hence → lightweight
+
+#### ➤ Can a Java program run without threads?
 ❌ No
-
 Even the simplest Java program runs with:
+* Main thread
+* GC thread
+* JIT/compiler threads
 
-Main thread
-GC thread
-JIT/compiler threads
+> [!TIP]
+> 👉 Every Java program is multithreaded by default.
 
-👉 Every Java program is multithreaded by default.
-
-➤ Is main() a thread?
+#### ➤ Is main() a thread?
 
 ❌ main() is not a thread
-✅ It is a method executed by the main thread
+* ✅ It is a method executed by the main thread
 
-➤ Who creates the main thread?
-JVM
-When JVM starts execution, it creates the main thread
-That thread calls main()
-✅ Q2. Why Do We Need Multithreading?
-Interview-Level Answer
+#### ➤ Who creates the main thread?
+* JVM
+* When JVM starts execution, it creates the main thread
+* That thread calls main()
+
+### ✅ Q2. Why Do We Need Multithreading?
 
 Multithreading is used to:
+* Improve application responsiveness
+* Utilize CPU efficiently
+* Perform multiple tasks concurrently
+* Handle high-traffic systems (servers, APIs)
+  
+#### 🔍 Follow-ups
+#### ➤ Multitasking vs Multithreading
+| Aspect | Multitasking | Multithreading |
+|---|---|---|
+| Execution Model | Multiple processes | Multiple threads |
+| Level | OS level | Application level |
+| Resource Cost | Heavy | Lightweight |
 
-Improve application responsiveness
-Utilize CPU efficiently
-Perform multiple tasks concurrently
-Handle high-traffic systems (servers, APIs)
-🔍 Follow-ups
-➤ Multitasking vs Multithreading
-Multitasking	Multithreading
-Multiple processes	Multiple threads
-OS level	Application level
-Heavy	Lightweight
-Example: Chrome + Spotify	One app doing many tasks
-➤ CPU-Bound vs IO-Bound Tasks
-CPU-Bound
-Heavy computation
-Limited by CPU speed
-Example: encryption, image processing
-
-👉 Few threads = best
-
-IO-Bound
-Waiting on IO (DB, network, file)
-CPU stays idle during wait
+* Example: Chrome + Spotify	One app doing many tasks
+  
+#### ➤ CPU-Bound vs IO-Bound Tasks
+| Aspect | CPU-Bound | IO-Bound |
+|---|---|---|
+| Work Type | Heavy computation | Waiting on external resources |
+| Limiting Factor | CPU speed | IO latency (DB, network, file) |
+| Example | Encryption, image processing | Database calls, REST APIs, file read/write |
+| Best Thread Strategy | Few threads | More threads |
 
 👉 More threads = better throughput
 
-➤ Real-World Examples
-Browser
-UI thread
-Network thread
-Rendering thread
-JavaScript execution thread
-Web Server (Spring Boot)
-One request = one thread
-Thread pool handles thousands of users
-IDE
-Code typing
-Background indexing
-Error analysis
-➤ When Should We Avoid Multithreading?
+#### ➤ Real-World Examples
+* Browser
+* UI thread
+* Network thread
+* Rendering thread
+* JavaScript execution thread
+* Web Server (Spring Boot)
+* One request = one thread
+* Thread pool handles thousands of users
+* IDE
+* Code typing
+* Background indexing
+* Error analysis
+
+#### ➤ When Should We Avoid Multithreading?
 Simple sequential tasks
 Heavy shared mutable state
 Low-resource systems
