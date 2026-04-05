@@ -119,6 +119,11 @@ Complex locking rules	ReentrantLock
 
 This code has a race condition because count++ is not atomic. Multiple threads can read the same value and overwrite each other’s updates. The fix is to ensure atomicity using synchronization or atomic variables. For a simple counter, AtomicInteger is the most efficient and clean solution.
 
+🧠 Interview Traps (Avoid These ❌)
+❌ “volatile will fix this” → WRONG (visibility ≠ atomicity)
+❌ “It works most of the time” → WRONG
+❌ “count++ is thread-safe” → WRONG
+
 ---
 ---
 
@@ -291,6 +296,12 @@ Rank	Implementation
 
 This lazy Singleton is not thread-safe because multiple threads can pass the null check simultaneously and create multiple instances. The issue occurs due to race conditions and lack of synchronization. It can be fixed using synchronized access, double-checked locking with volatile, or the Bill Pugh approach. The best and most robust solution in Java is the Enum Singleton, as it is thread-safe, serialization-safe, and reflection-safe by design.
 
+🧠 Common Interview Traps ❌
+❌ “volatile alone makes it thread-safe”
+❌ “synchronized is always slow”
+❌ “enum is not flexible”
+❌ “lazy singleton is always better”
+
 ---
 ---
 
@@ -461,6 +472,7 @@ ConcurrentHashMap
 🎯 Interview-Ready Final Answer (Perfect)
 
 Deadlock occurs when multiple threads hold locks and wait for each other in a circular manner. In this case, threads acquire locks in different orders, causing circular wait. Deadlock requires four conditions—mutual exclusion, hold and wait, no preemption, and circular wait. It can be detected using thread dumps and prevented by enforcing consistent lock ordering, avoiding nested locks, or using timeout-based locking.
+
 
 ---
 ---
@@ -831,6 +843,12 @@ Needs AtomicInteger or redesign
 
 Spring controllers are singleton by default, so they are accessed concurrently by multiple threads. Local variables are thread-safe, but shared instance fields are not. Concurrency issues arise due to shared mutable state. The best practice is to design controllers and services as stateless, use immutable or thread-safe structures, and avoid shared fields wherever possible.
 
+🧠 Interview Traps ❌
+❌ “Spring handles thread safety automatically”
+❌ “Controllers are request-scoped by default”
+❌ “Session scope is safe”
+❌ “Static variables are safe in controllers”
+
 ---
 ---
 
@@ -921,6 +939,12 @@ volatile is better here
 🎯 Interview-Ready Final Answer (Perfect)
 
 The loop may never stop because of a visibility issue—one thread may keep reading a cached value of the flag. Without a happens-before relationship, updates made by one thread are not guaranteed to be visible to others. Declaring the flag as volatile ensures visibility by forcing reads and writes to main memory, allowing the loop to terminate correctly.
+
+🧠 Interview Traps ❌
+❌ volatile makes operations atomic
+❌ volatile fixes race conditions
+❌ synchronized is always better
+❌ JVM always reads latest value
 
 ---
 ---
