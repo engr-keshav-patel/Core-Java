@@ -165,14 +165,19 @@ Multithreading is used to:
 ---
 ---
 
-🔥 JAVA MULTITHREADING — THREAD CREATION (IN-DEPTH)
-2️⃣ Thread Creation
-✅ Q4. Ways to Create a Thread in Java
+# 🔥 JAVA MULTITHREADING — THREAD CREATION (IN-DEPTH)
+## 2️⃣ Thread Creation
+### ✅ Q4. Ways to Create a Thread in Java
 
-Java provides four standard ways to create threads, evolving from low-level control → high-level concurrency management.
+> [!NOTE] Java provides four standard ways to create threads, evolving from low-level control → high-level concurrency management.
 
-1️⃣ Extending Thread class
-Example
+
+#### 1️⃣ Extending Thread class
+
+#### Example
+
+```java
+
 class MyThread extends Thread {
     public void run() {
         System.out.println("Thread running: " + Thread.currentThread().getName());
@@ -211,22 +216,27 @@ public class Test {
         t.start();
     }
 }
-Explanation
-Runnable represents task
-Thread represents execution
-Separation of responsibility
-✅ Advantages
-Supports inheritance
-Clean design
-Better for testing
-Preferred in frameworks (Spring, Executors)
+```
 
-👉 Interview Line:
+#### Explanation
+* Runnable represents task
+* Thread represents execution
+* Separation of responsibility
+  
+#### ✅ Advantages
+* Supports inheritance
+* Clean design
+* Better for testing
+* Preferred in frameworks (Spring, Executors)
 
-Runnable decouples what to do from how to execute.
+> [!NOTE] 👉 Runnable decouples what to do from how to execute.
 
-3️⃣ Using Callable (Return Value + Exception)
-Example
+#### 3️⃣ Using Callable (Return Value + Exception)
+
+#### Example
+
+```java
+
 Callable<Integer> task = () -> {
     return 10 + 20;
 };
@@ -236,13 +246,19 @@ Future<Integer> future = executor.submit(task);
 
 System.out.println(future.get()); // 30
 executor.shutdown();
-Explanation
-Introduced in Java 5
-Used when:
-You need result
-You need to throw checked exceptions
-4️⃣ Using ExecutorService (BEST PRACTICE)
-Example
+```
+
+#### Explanation
+* Introduced in Java 5
+* Used when:
+* You need result
+* You need to throw checked exceptions
+  
+#### 4️⃣ Using ExecutorService (BEST PRACTICE)
+
+#### Example
+
+```java
 ExecutorService executor = Executors.newFixedThreadPool(3);
 
 executor.execute(() -> {
@@ -250,136 +266,142 @@ executor.execute(() -> {
 });
 
 executor.shutdown();
-Why This Is Best?
-Thread reuse
-Controlled concurrency
-Better performance
-Prevents thread explosion
+```
 
-👉 Interview Rule:
+#### Why This Is Best?
+* Thread reuse
+* Controlled concurrency
+* Better performance
+* Prevents thread explosion
 
-Never create threads manually in production systems.
+> [!NOTE] 👉 Never create threads manually in production systems.
 
-🔍 Follow-ups (Q4)
-➤ Difference between Thread vs Runnable
-Aspect	Thread	Runnable
-Inheritance	Extends Thread	Implements Runnable
-Flexibility	Low	High
-Design	Tight coupling	Loose coupling
-Multiple inheritance	❌	✅
-Preferred	❌	✅
-➤ Why is Runnable preferred?
-Supports inheritance
-Better OO design
-Thread pooling compatibility
-Cleaner separation of concerns
+#### 🔍 Follow-ups (Q4)
 
-👉 Interview phrase:
+#### ➤ Difference between Thread vs Runnable
 
-Runnable follows composition over inheritance.
+| Aspect | `Thread` | `Runnable` |
+|---|---|---|
+| Inheritance | Extends `Thread` | Implements `Runnable` |
+| Flexibility | Low | High |
+| Design | Tight coupling | Loose coupling |
+| Multiple Inheritance Support | ❌ No | ✅ Yes |
+| Preferred | ❌ No | ✅ Yes |
 
-➤ Can we extend multiple threads?
+#### ➤ Why is Runnable preferred?
+
+* Supports inheritance
+* Better OO design
+* Thread pooling compatibility
+* Cleaner separation of concerns
+
+> [!NOTE] 👉 Runnable follows composition over inheritance.
+
+#### ➤ Can we extend multiple threads?
 
 ❌ No
 
-Java does not support multiple inheritance of classes.
+* Java does not support multiple inheritance of classes.
 
-➤ Which approach is best and why?
+#### ➤ Which approach is best and why?
 
-✅ ExecutorService + Runnable/Callable
+* ✅ ExecutorService + Runnable/Callable
 
 Reason:
 
-Thread reuse
-Resource control
-Better scalability
-Production-grade concurrency
-✅ Q5. Difference Between Runnable and Callable
-Core Difference Table
-Feature	Runnable	Callable
-Return value	❌	✅
-Checked exception	❌	✅
-Introduced in	Java 1.0	Java 5
-submit() result	null	Future
-Used with Executor	Yes	Yes
-➤ Return Value
-Runnable r = () -> { };   // No return
-Callable<Integer> c = () -> 100; // Returns value
-➤ Exception Handling
-Runnable → only unchecked
-Callable → checked + unchecked
-➤ How to get result from Callable?
+* Thread reuse
+* Resource control
+* Better scalability
+* Production-grade concurrency
+  
+#### ✅ Q5. Difference Between Runnable and Callable
 
-Using Future
+| Feature | `Runnable` | `Callable` |
+|---|---|---|
+| Return Value | ❌ No | ✅ Yes |
+| Checked Exception | ❌ No | ✅ Yes |
+| Introduced In | Java 1.0 | Java 5 |
+| `submit()` Result | `null` | `Future<T>` |
+| Used with Executor | ✅ Yes | ✅ Yes |
 
+
+#### ➤ How to get result from Callable?
+
+* Using Future
+
+```java
 Future<Integer> future = executor.submit(callable);
 Integer result = future.get();
-➤ What is Future?
+```
 
-A placeholder for result of async computation.
+#### ➤ What is Future?
 
-Capabilities:
+> [!NOTE] A placeholder for result of async computation.
 
-get() → blocks until result
-isDone() → check completion
-cancel() → cancel task
+* Capabilities:
 
-👉 Interview line:
+* get() → blocks until result
+* isDone() → check completion
+* cancel() → cancel task
 
-Future represents the promise of a future result.
+> [!NOTE] 👉 Future represents the promise of a future result.
 
-➤ Can Runnable throw checked exception?
+#### ➤ Can Runnable throw checked exception?
 
 ❌ No
-It must handle checked exceptions internally.
+> It must handle checked exceptions internally.
 
-✅ Q6. What Happens Internally When We Call start()?
-MOST IMPORTANT INTERVIEW QUESTION 🔥
+### ✅ Q6. What Happens Internally When We Call start()?
+> [!TIP] MOST IMPORTANT QUESTION 🔥
 Step-by-Step Internal Flow
 
-1️⃣ start() is called
-2️⃣ JVM requests OS to create new thread
-3️⃣ New call stack is allocated
-4️⃣ Thread state → RUNNABLE
-5️⃣ JVM calls run() internally
-6️⃣ run() executes concurrently
+* 1️⃣ start() is called
+* 2️⃣ JVM requests OS to create new thread
+* 3️⃣ New call stack is allocated
+* 4️⃣ Thread state → RUNNABLE
+* 5️⃣ JVM calls run() internally
+* 6️⃣ run() executes concurrently
 
-➤ Difference Between start() and run()
-start()	run()
-Creates new thread	No new thread
-Parallel execution	Sequential
-Calls run internally	Just a normal method
-t.run();   // No multithreading
-t.start(); // Multithreading
+#### ➤ Difference Between start() and run()
+| Aspect | `start()` | `run()` |
+|---|---|---|
+| Thread Creation | ✅ Creates new thread | ❌ No new thread |
+| Execution | Parallel / concurrent | Sequential |
+| Internal Behavior | JVM internally calls `run()` | Normal method call |
+| Multithreading | ✅ Yes | ❌ No |
+| Example | `t.start();` | `t.run();` |
 
-👉 Interview trap:
-Calling run() directly does NOT start a new thread.
+> [!NOTE] 👉 Calling run() directly **does NOT** start a new thread.
 
-➤ Can we call start() twice?
+#### ➤ Can we call start() twice?
 
 ❌ No
 
+```java
 Thread t = new Thread();
 t.start();
 t.start(); // ❌
+
 Exception:
 IllegalThreadStateException
-➤ Why start() only once?
+```
+
+#### ➤ Why start() only once?
 Thread lifecycle is one-time
 Once terminated → cannot restart
-➤ Who allocates stack memory?
 
-✅ JVM + OS
+#### ➤ Who allocates stack memory?
 
-JVM requests OS
-OS allocates native thread
-Each thread gets:
-Separate stack
-Program counter
-Heap is shared
-🎯 INTERVIEW CLOSING LINE (VERY STRONG)
+* ✅ JVM + OS
 
-Thread creation evolved from low-level Thread API to high-level Executor framework to improve performance, scalability, and safety in concurrent applications.
+* JVM requests OS
+* OS allocates native thread
+* Each thread gets:
+* Separate stack
+* Program counter
+* Heap is shared
+
+> [!NOTE] 🎯 Thread creation evolved from low-level Thread API to high-level Executor framework to improve performance, scalability, and safety in concurrent applications.
 
 ---
 ---
