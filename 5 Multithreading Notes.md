@@ -169,7 +169,8 @@ Multithreading is used to:
 ## 2️⃣ Thread Creation
 ### ✅ Q4. Ways to Create a Thread in Java
 
-> [!NOTE] Java provides four standard ways to create threads, evolving from low-level control → high-level concurrency management.
+> [!NOTE]
+>  Java provides four standard ways to create threads, evolving from low-level control → high-level concurrency management.
 
 
 #### 1️⃣ Extending Thread class
@@ -190,20 +191,26 @@ public class Test {
         t.start();
     }
 }
-Explanation
-You override run()
-Call start() → JVM creates a new thread
-run() executes in new call stack
-❌ Limitations
-Java supports single inheritance
-You lose chance to extend another class
-Thread logic tightly coupled with thread management
+```
 
-👉 Interview Verdict:
-❌ Not recommended for real projects
+#### Explanation
+* You override run()
+* Call start() → JVM creates a new thread
+* run() executes in new call stack
+  
+#### ❌ Limitations
+* Java supports single inheritance
+* You lose chance to extend another class
+* Thread logic tightly coupled with thread management
 
-2️⃣ Implementing Runnable (MOST COMMON)
-Example
+> 👉 Verdict:
+> ❌ Not recommended for real projects
+
+#### 2️⃣ Implementing Runnable (MOST COMMON)
+
+#### Example
+
+```java
 class MyTask implements Runnable {
     public void run() {
         System.out.println("Task running in: " + Thread.currentThread().getName());
