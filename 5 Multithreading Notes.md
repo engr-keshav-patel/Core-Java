@@ -610,9 +610,9 @@ obj.wait(); // ❌ IllegalMonitorStateException
 * Because:
 
 > [!NOTE]
->  Every object can act as a monitor
-> Lock is associated with object, not thread
-> wait/notify operate on monitor ownership
+> * Every object can act as a monitor
+> * Lock is associated with object, not thread
+> * wait/notify operate on monitor ownership
 
 > [!NOTE]
 > 👉 If wait() were in Thread:
@@ -631,162 +631,173 @@ obj.wait(); // ❌ IllegalMonitorStateException
 ---
 ---
 
-🔥 JAVA MULTITHREADING — THREAD SCHEDULING & PRIORITY (IN-DEPTH)
-✅ Q9. What is Thread Scheduling?
-Interview-Level Definition
+# 🔥 JAVA MULTITHREADING — THREAD SCHEDULING & PRIORITY (IN-DEPTH)
 
-Thread scheduling is the mechanism by which the CPU decides which runnable thread gets execution time and for how long.
+## ✅ Q9. What is Thread Scheduling?
 
-In Java:
 
-Threads are scheduled preemptively
+> [!NOTE]
+> Thread scheduling is the mechanism by which the CPU decides which runnable thread gets execution time and for how long.
+
+> [!NOTE]
+>  In Java:
+> Threads are scheduled preemptively
 Scheduling is not deterministic
 JVM delegates scheduling largely to the underlying OS
 
-👉 Key Idea:
-Java decides what is runnable,
-OS decides what actually runs.
+> [!NOTE]
+> 👉 Key Idea:
+> * Java decides what is runnable,
+> * OS decides what actually runs.
 
-🔄 How Scheduling Works (Conceptually)
-Multiple threads are in RUNNABLE state
-OS scheduler selects one thread
-Thread executes for a time slice
-Context switch occurs
-Another thread gets CPU
-🔍 Follow-ups (Q9)
-➤ Is Thread Scheduling Guaranteed?
+#### 🔄 How Scheduling Works (Conceptually)
+
+* Multiple threads are in RUNNABLE state
+* OS scheduler selects one thread
+* Thread executes for a time slice
+* Context switch occurs
+* Another thread gets CPU
+  
+#### 🔍 Follow-ups (Q9)
+#### ➤ Is Thread Scheduling Guaranteed?
 
 ❌ NO
 
-Execution order is never guaranteed
-JVM spec explicitly avoids guarantees
+* Execution order is never guaranteed
+* JVM spec explicitly avoids guarantees
 
-👉 Interview one-liner:
 
-Java provides concurrency, not parallelism guarantees.
+> [!NOTE]
+> Java provides concurrency, not parallelism guarantees.
 
-➤ Who Schedules Threads?
+#### ➤ Who Schedules Threads?
 
 ✅ Primarily the Operating System
 
-JVM maps Java threads to native OS threads
-OS kernel scheduler performs:
-CPU allocation
-Time slicing
-Preemption
+* JVM maps Java threads to native OS threads
+* OS kernel scheduler performs:
+* CPU allocation
+* Time slicing
+* Preemption
 
-JVM only provides hints (priority, yield)
+* JVM only provides hints (priority, yield)
 
-➤ Is Scheduling OS-dependent or JVM-dependent?
+#### ➤ Is Scheduling OS-dependent or JVM-dependent?
 
 ✅ OS-dependent
 
-Linux, Windows, macOS → different schedulers
-Same Java code behaves differently on different OS
+* Linux, Windows, macOS → different schedulers
+* Same Java code behaves differently on different OS
 
-👉 Interview insight:
+> [!NOTE]
+> 👉 Java threading behavior can vary across platforms.
 
-Java threading behavior can vary across platforms.
-
-➤ Can We Control Thread Scheduling?
+#### ➤ Can We Control Thread Scheduling?
 
 ❌ Not directly
 
-We can only influence, not control:
+* We can only influence, not control:
 
-setPriority()
-yield()
-sleep()
+* setPriority()
+* yield()
+* sleep()
 
-But JVM/OS may ignore them
+* But JVM/OS may ignore them
 
-➤ What About Thread.yield()?
-Hints scheduler to give CPU to another thread
-No guarantee
-Rarely useful in production
-✅ Q10. What is Thread Priority?
-Interview-Level Definition
+#### ➤ What About Thread.yield()?
 
-Thread priority is a hint to the thread scheduler about the relative importance of a thread.
+* Hints scheduler to give CPU to another thread
+* No guarantee
+* Rarely useful in production
 
-Java priority influences CPU preference, not execution order.
+#### ✅ Q10. What is Thread Priority?
 
-🔢 Priority Range in Java
-Thread.MIN_PRIORITY  = 1
-Thread.NORM_PRIORITY = 5 (default)
-Thread.MAX_PRIORITY  = 10
-➤ Default Priority
+> [!NOTE]
+>  Thread priority is a hint to the thread scheduler about the relative importance of a thread.
+
+> Java priority influences CPU preference, not execution order.
+
+#### 🔢 Priority Range in Java
+* Thread.MIN_PRIORITY  = 1
+* Thread.NORM_PRIORITY = 5 (default)
+* Thread.MAX_PRIORITY  = 10
+  
+#### ➤ Default Priority
 5
-Child thread inherits parent’s priority
+* Child thread inherits parent’s priority
 ➤ Example
+```java
 Thread t1 = new Thread(task);
 t1.setPriority(Thread.MAX_PRIORITY);
 
 Thread t2 = new Thread(task);
 t2.setPriority(Thread.MIN_PRIORITY);
+```
 
-👉 Even here, execution order is not guaranteed.
+* 👉 Even here, execution order is not guaranteed.
 
-🔍 Follow-ups (Q10)
-➤ Does Priority Guarantee Execution Order?
+#### 🔍 Follow-ups (Q10)
+#### ➤ Does Priority Guarantee Execution Order?
 
 ❌ NO
 
-Higher priority thread may not run first
-Lower priority thread may starve or may run
+* Higher priority thread may not run first
+* Lower priority thread may starve or may run
 
-👉 Interview statement:
+* Priority is a suggestion, not a command.
 
-Priority is a suggestion, not a command.
+#### ➤ Why Is Thread Priority Unreliable?
 
-➤ Why Is Thread Priority Unreliable?
-1️⃣ OS Scheduler Overrides
-OS may ignore Java priority
-Especially true on modern OS
-2️⃣ Platform Differences
-Windows honors priority more than Linux
-Linux often ignores JVM priority mapping
-3️⃣ JVM Optimizations
-JVM may reorder or batch execution
-➤ Can Priority Cause Starvation?
+* 1️⃣ OS Scheduler Overrides
+* OS may ignore Java priority
+* Especially true on modern OS
+* 2️⃣ Platform Differences
+* Windows honors priority more than Linux
+* Linux often ignores JVM priority mapping
+* 3️⃣ JVM Optimizations
+* JVM may reorder or batch execution
+
+#### ➤ Can Priority Cause Starvation?
 
 ✅ YES
 
-High-priority thread monopolizes CPU
-Low-priority threads may not get CPU time
+* High-priority thread monopolizes CPU
+* Low-priority threads may not get CPU time
 
-👉 Interview follow-up:
+> [!NOTE]
+> This is why priority-based design is discouraged.
 
-This is why priority-based design is discouraged.
+🧠 Real-World Insight
 
-🧠 Real-World Interview Insight
-
-❌ Using priority for business logic
-❌ Assuming execution order
-❌ Relying on yield/sleep for correctness
+* ❌ Using priority for business logic
+* ❌ Assuming execution order
+* ❌ Relying on yield/sleep for correctness
 
 ✅ Use:
 
-Proper synchronization
-Executor framework
-Fair locks if ordering matters
-🎯 INTERVIEW CLOSING LINE (STRONG)
-
-Java thread scheduling is intentionally non-deterministic to allow JVM and OS optimizations. Correct multithreaded programs must never rely on execution order or priority.
+* Proper synchronization
+* Executor framework
+* Fair locks if ordering matters
+  
+> [!NOTE]
+> 🎯 Java thread scheduling is intentionally non-deterministic to allow JVM and OS optimizations. Correct multithreaded programs must never rely on execution order or priority.
 
 ---
 ---
 
-🔥 JAVA MULTITHREADING — SYNCHRONIZATION (IN-DEPTH)
-✅ Q11. What is Synchronization?
+# 🔥 JAVA MULTITHREADING — SYNCHRONIZATION (IN-DEPTH)
+## ✅ Q11. What is Synchronization?
 Interview-Level Definition
 
-Synchronization is a mechanism in Java that controls access to shared resources so that only one thread can execute a critical section at a time, thereby maintaining data consistency and thread safety.
+> [!NOTE]
+> Synchronization is a mechanism in Java that controls access to shared resources so that only one thread can execute a critical section at a time, thereby maintaining data consistency and thread safety.
 
-In simple terms:
-Synchronization prevents multiple threads from corrupting shared data.
+> In simple terms:
+> Synchronization prevents multiple threads from corrupting shared data.
 
-✅ Example (Problem Without Synchronization)
+* ✅ Example (Problem Without Synchronization)
+
+```java
 class Counter {
     int count = 0;
 
@@ -794,187 +805,236 @@ class Counter {
         count++; // NOT atomic
     }
 }
+```
 
-If two threads execute increment() simultaneously:
+* If two threads execute increment() simultaneously:
 
-Both read the same value
-Both update it
-One update is lost
+* Both read the same value
+* Both update it
+* One update is lost
 
-👉 This is a race condition.
+> 👉 This is a race condition.
 
-🔍 Follow-ups (Q11)
-➤ Why is Synchronization Needed?
+#### 🔍 Follow-ups (Q11)
 
-Because:
+#### ➤ Why is Synchronization Needed?
 
-Threads share heap memory
+* Because:
+
+> Threads share heap memory
 Operations like count++ are not atomic
 CPU may interleave execution
 
-Without synchronization:
+* Without synchronization:
 
-Inconsistent data
-Corrupted state
-Hard-to-reproduce bugs
+* Inconsistent data
+* Corrupted state
+* Hard-to-reproduce bugs
 
-👉 Interview line:
+> [!NOTE] 👉 Synchronization ensures mutual exclusion and visibility guarantees.
 
-Synchronization ensures mutual exclusion and visibility guarantees.
+#### ➤ What is a Critical Section?
 
-➤ What is a Critical Section?
+* A critical section is the part of code that:
 
-A critical section is the part of code that:
-
-Accesses shared mutable data
+* Accesses shared mutable data
 Must be executed by only one thread at a time
+
+```java
+
 synchronized(lock) {
     // critical section
 }
+```
 
-👉 Identifying the correct critical section is key to performance.
+> [!NOTE]
+> 👉 Identifying the correct critical section is key to performance.
 
-➤ What Happens if Synchronization is Removed?
+#### ➤ What Happens if Synchronization is Removed?
 
-❌ Data inconsistency
-❌ Race conditions
-❌ Lost updates
-❌ Visibility issues
+* ❌ Data inconsistency
+* ❌ Race conditions
+* ❌ Lost updates
+* ❌ Visibility issues
 
-👉 In production, this leads to random failures that are extremely hard to debug.
+> 👉 In production, this leads to random failures that are extremely hard to debug.
 
-✅ Q12. Different Ways to Achieve Synchronization
+#### ✅ Q12. Different Ways to Achieve Synchronization
 
-Java provides three intrinsic locking mechanisms.
+##### Java provides three intrinsic locking mechanisms.
 
-1️⃣ Synchronized Method
+##### 1️⃣ Synchronized Method
+
 Example
+
+```java
 class Counter {
     synchronized void increment() {
         count++;
     }
 }
-Explanation
-Lock is acquired on current object (this)
+```
+
+> Explanation : 
+> Lock is acquired on current object (this)
 Only one thread can execute any synchronized method of that object
-2️⃣ Synchronized Block (Preferred)
+
+##### 2️⃣ Synchronized Block (Preferred)
+
 Example
+```java
 void increment() {
     synchronized(this) {
         count++;
     }
 }
 }
-Why Better?
-Smaller critical section
-Better performance
-More control
+```
 
-👉 Interview rule:
+* Why Better?
+* Smaller critical section
+* Better performance
+* More control
 
-Synchronize the minimum required code, not the whole method.
+> [!TIP]
+>👉 Synchronize the minimum required code, not the whole method.
 
-3️⃣ Static Synchronization
+##### 3️⃣ Static Synchronization
+
 Example
+```java
 class Counter {
     static synchronized void increment() {
         count++;
     }
 }
-Explanation
-Lock is acquired on Class object
+```
+
+> Explanation : 
+> Lock is acquired on Class object
 Shared across all instances
-🔍 Follow-ups (Q12)
-➤ Method vs Block Synchronization
-Aspect	Method	Block
-Scope	Whole method	Selected code
-Flexibility	Low	High
-Performance	Lower	Better
-Preferred	❌	✅
-➤ Object Lock vs Class Lock
-Lock Type	Locked On	Used When
-Object lock	this / object	Instance-level data
-Class lock	ClassName.class	Static/shared data
-➤ When Is Static Synchronization Needed?
-When shared data is static
-When consistency must be maintained across all objects
-static int totalUsers;
 
-👉 Instance lock won’t protect static data.
+#### 🔍 Follow-ups (Q12)
 
-✅ Q13. What is Intrinsic Lock (Monitor Lock)?
-Interview-Level Definition
+#### ➤ Method vs Block Synchronization
 
-An intrinsic lock (also called monitor lock) is an internal lock associated with every Java object, used by synchronized.
+| Aspect | Synchronized Method | Synchronized Block |
+|---|---|---|
+| Scope | Whole method | Selected code block |
+| Flexibility | Low | High |
+| Performance | Lower | Better |
+| Preferred | ❌ No | ✅ Yes |
 
-Every object in Java can act as a monitor.
+#### ➤ Object Lock vs Class Lock
+
+| Lock Type | Locked On | Used When |
+|---|---|---|
+| Object Lock | `this` / object instance | Instance-level data |
+| Class Lock | `ClassName.class` | Static / shared data |
+
+#### ➤ When Is Static Synchronization Needed?
+* When shared data is static
+* When consistency must be maintained across all objects
+* static int totalUsers;
+
+> [!NOTE]
+> 👉 Instance lock won’t protect static data.
+
+> ✅ Q13. What is Intrinsic Lock (Monitor Lock)?
+
+> [!NOTE]
+> An intrinsic lock (also called monitor lock) is an internal lock associated with every Java object, used by synchronized.
+
+> Every object in Java can act as a monitor.
 
 Example
+```java
 synchronized(obj) {
     // obj’s monitor lock acquired
 }
-🔍 Follow-ups (Q13)
-➤ Which Object Owns the Lock?
-The object used in synchronized(obj)
-For instance method → this
-For static method → ClassName.class
-➤ What If Two Threads Use Different Objects?
+```
+
+#### 🔍 Follow-ups (Q13)
+
+#### ➤ Which Object Owns the Lock?
+* The object used in synchronized(obj)
+* For instance method → this
+* For static method → ClassName.class
+
+#### ➤ What If Two Threads Use Different Objects?
+```java
 Counter c1 = new Counter();
 Counter c2 = new Counter();
+```
 
-If threads synchronize on c1 and c2:
+* If threads synchronize on c1 and c2:
 
-❌ No mutual exclusion
-Threads run concurrently
-Data corruption possible
+* ❌ No mutual exclusion
+* Threads run concurrently
+* Data corruption possible
 
-👉 Locks work per object, not per class unless static.
+> [!NOTE]
+> 👉 Locks work per object, not per class unless static.
 
 ➤ Is this a Lock?
 
 ✅ Yes
-
+```java
 synchronized(this) {
 }
-Current object’s monitor is used
-Common but must be used carefully
-✅ Q14. Can We Synchronize a Constructor?
+```
+
+* Current object’s monitor is used
+* Common but must be used carefully
+  
+#### ✅ Q14. Can We Synchronize a Constructor?
 
 ❌ NO
 
-➤ Why Not?
-Constructor is used to create the object
+#### ➤ Why Not?
+> [!NOTE]
+> Constructor is used to create the object
 Lock exists only after object is created
 Other threads cannot access object before construction completes
 
 👉 Therefore, constructor synchronization is meaningless.
 
 ➤ Alternative Approaches
-1️⃣ Factory Method
+
+#### 1️⃣ Factory Method
+
+```java
 public static synchronized MyClass createInstance() {
     return new MyClass();
 }
-2️⃣ Initialization Block
+```
+
+#### 2️⃣ Initialization Block
+
+```java
 {
     synchronized(lock) {
         // init logic
     }
 }
-3️⃣ Proper Object Publication
-Use final fields
-Use volatile references
-Safe publication through constructors
-🧠 COMMON INTERVIEW TRAPS
+```
 
-❌ Synchronizing everything
-❌ Synchronizing wrong object
-❌ Using this blindly
-❌ Forgetting static synchronization
-❌ Assuming synchronization solves performance issues
+#### 3️⃣ Proper Object Publication
 
-🎯 STRONG INTERVIEW CLOSING STATEMENT
+* Use final fields
+* Use volatile references
+* Safe publication through constructors
+  
+🧠 COMMON TRAPS
 
-Synchronization guarantees correctness but reduces concurrency. A good design balances thread safety with performance by minimizing critical sections and using higher-level concurrency utilities when possible.
+* ❌ Synchronizing everything
+* ❌ Synchronizing wrong object
+* ❌ Using this blindly
+* ❌ Forgetting static synchronization
+* ❌ Assuming synchronization solves performance issues
+
+> [!NOTE]
+> 🎯 Synchronization guarantees correctness but reduces concurrency. A good design balances thread safety with performance by minimizing critical sections and using higher-level concurrency utilities when possible.
 
 ---
 ---
