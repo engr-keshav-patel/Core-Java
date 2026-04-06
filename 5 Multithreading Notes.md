@@ -512,103 +512,121 @@ Requires explicit notification
 * RUNNABLE → sleep()/wait(time) → TIMED_WAITING
 *RUNNABLE → run() ends → TERMINATED
 
-🔍 Follow-ups (Q7)
-➤ Difference Between BLOCKED and WAITING
-Aspect	BLOCKED	WAITING
-Cause	Waiting for lock	Waiting for notification
-Lock released?	❌ No	✅ Yes
-Example	synchronized contention	wait(), join()
-Timeout	❌	❌ (unless timed)
+#### 🔍 Follow-ups (Q7)
 
-👉 Strong interview line:
+#### ➤ Difference Between BLOCKED and WAITING
 
-BLOCKED is about lock acquisition, WAITING is about coordination.
+| Aspect | `BLOCKED` | `WAITING` |
+|---|---|---|
+| Cause | Waiting for lock | Waiting for notification |
+| Lock Released? | ❌ No | ✅ Yes |
+| Example | `synchronized` lock contention | `wait()`, `join()` |
+| Timeout | ❌ No | ❌ No (unless timed) |
 
-➤ When does a thread go to BLOCKED?
-When it tries to enter a synchronized block/method
-Another thread already holds the lock
+> [!NOTE]
+>  👉 BLOCKED is about lock acquisition, WAITING is about coordination.
+
+#### ➤ When does a thread go to BLOCKED?
+
+> When it tries to enter a synchronized block/method
+> Another thread already holds the lock
+
+```java
 synchronized(lock) {
     // Thread A holds lock
 }
 // Thread B → BLOCKED
-➤ Which state occurs during sleep()?
+```
+
+#### ➤ Which state occurs during sleep()?
 
 ✅ TIMED_WAITING
 
-Thread.sleep(1000);
-Thread does NOT release lock
-Automatically wakes after time expires
-➤ Which state occurs during wait()?
+* Thread.sleep(1000);
+* Thread does NOT release lock
+* Automatically wakes after time expires
+
+#### ➤ Which state occurs during wait()?
 
 ✅ WAITING or TIMED_WAITING
 
-obj.wait();      // WAITING
-obj.wait(1000); // TIMED_WAITING
-Thread releases lock
-Waits for notify() or timeout
-✅ Q8. Difference Between sleep() and wait()
+* obj.wait();      // WAITING
+* obj.wait(1000); // TIMED_WAITING
+* Thread releases lock
+* Waits for notify() or timeout
+
+#### ✅ Q8. Difference Between sleep() and wait()
 
 🔥 MOST ASKED MULTITHREADING QUESTION
 
-High-Level Interview Answer
 
-sleep() is a thread pausing mechanism,
-wait() is an inter-thread communication mechanism.
+> sleep() is a thread pausing mechanism,
+> wait() is an inter-thread communication mechanism.
 
-🔍 Comparison Table
-Aspect	sleep()	wait()
-Class	Thread	Object
-Lock release	❌ No	✅ Yes
-Purpose	Pause execution	Coordination
-Needs synchronized	❌ No	✅ Yes
-Wake-up	Time-based	notify / notifyAll
-Exception	InterruptedException	InterruptedException
-➤ Lock Release Behavior (VERY IMPORTANT)
+#### 🔍 Comparison Table
+
+| Aspect | `sleep()` | `wait()` |
+|---|---|---|
+| Class | `Thread` | `Object` |
+| Lock Release | ❌ No | ✅ Yes |
+| Purpose | Pause execution | Inter-thread coordination |
+| Needs `synchronized` | ❌ No | ✅ Yes |
+| Wake-up | Time-based | `notify()` / `notifyAll()` |
+| Exception | `InterruptedException` | `InterruptedException` |
+
+> [!NOTE]
+> ➤ Lock Release Behavior (VERY IMPORTANT)
+
+```java
 synchronized(lock) {
     Thread.sleep(1000); // lock NOT released
 }
 synchronized(lock) {
     lock.wait(); // lock released
 }
+```
 
-👉 Interview one-liner:
+> [!NOTE]
+>sleep holds the lock, wait hands it over.
 
-sleep holds the lock, wait hands it over.
+#### ➤ Which class they belong to?
+* sleep() → Thread
+* wait() → Object
 
-➤ Which class they belong to?
-sleep() → Thread
-wait() → Object
-➤ Can wait() be called without synchronized?
+#### ➤ Can wait() be called without synchronized?
 
 ❌ No
-
+```java
 obj.wait(); // ❌ IllegalMonitorStateException
+```
 
 👉 Reason:
 
-Thread must own the object's monitor
-➤ Why does wait() exist in Object class?
-BEST INTERVIEW ANSWER
+> [!NOTE]
+>Thread must own the object's monitor
 
-Because:
+#### ➤ Why does wait() exist in Object class?
 
-Every object can act as a monitor
-Lock is associated with object, not thread
-wait/notify operate on monitor ownership
+* Because:
 
-👉 If wait() were in Thread:
+> [!NOTE]
+>  Every object can act as a monitor
+> Lock is associated with object, not thread
+> wait/notify operate on monitor ownership
 
-Thread wouldn’t know which object lock to release
-🧠 COMMON INTERVIEW TRAPS
+> [!NOTE]
+> 👉 If wait() were in Thread:
+> Thread wouldn’t know which object lock to release
 
-❌ “sleep releases lock” → WRONG
-❌ “wait pauses thread” → Incomplete
-❌ “BLOCKED and WAITING are same” → WRONG
-❌ “run() puts thread in RUNNABLE” → WRONG
+#### 🧠 COMMON TRAPS
 
-🎯 INTERVIEW CLOSING STATEMENT (POWERFUL)
+* ❌ “sleep releases lock” → WRONG
+* ❌ “wait pauses thread” → Incomplete
+* ❌ “BLOCKED and WAITING are same” → WRONG
+* ❌ “run() puts thread in RUNNABLE” → WRONG
 
-Thread lifecycle understanding is critical because performance issues, deadlocks, and hangs are all caused by incorrect state transitions and lock handling.
+> [!NOTE]
+>  Thread lifecycle understanding is critical because performance issues, deadlocks, and hangs are all caused by incorrect state transitions and lock handling.
 
 ---
 ---
