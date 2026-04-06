@@ -1454,15 +1454,19 @@ lock.tryLock(1, TimeUnit.SECONDS);
 ---
 ---
 
-🔥 JAVA MULTITHREADING — VOLATILE & JAVA MEMORY MODEL (IN-DEPTH)
-✅ Q20. What is volatile?
-Interview-Level Definition
+# 🔥 JAVA MULTITHREADING — VOLATILE & JAVA MEMORY MODEL (IN-DEPTH)
 
-volatile is a keyword in Java that guarantees visibility of changes to a variable across threads by forcing reads and writes directly from/to main memory.
+## ✅ Q20. What is volatile?
 
-volatile ensures that when one thread updates a variable, all other threads immediately see the updated value.
+> [!NOTE]
+> volatile is a keyword in Java that guarantees visibility of changes to a variable across threads by forcing reads and writes directly from/to main memory.
 
-🔎 Simple Example (Visibility Problem)
+> [!TIP]
+>volatile ensures that when one thread updates a variable, all other threads immediately see the updated value.
+
+#### 🔎 Simple Example (Visibility Problem)
+
+```java
 class StopFlagExample {
     static boolean running = true;
 
@@ -1478,158 +1482,167 @@ class StopFlagExample {
         running = false;
     }
 }
+```
 
-❌ The loop may never stop.
+* ❌ The loop may never stop.
 
-✅ Fix with volatile
-static volatile boolean running = true;
+* ✅ Fix with volatile
+* static volatile boolean running = true;
+* Now the change is visible immediately.
 
-Now the change is visible immediately.
+#### 🔍 Follow-ups (Q20)
 
-🔍 Follow-ups (Q20)
-➤ Visibility vs Atomicity (🔥 VERY IMPORTANT)
-Concept	Visibility	Atomicity
-Meaning	Latest value seen	Operation completes fully
-Provided by volatile	✅ Yes	❌ No
-Example	flag = false	count++
-Why count++ is NOT atomic
+#### ➤ Visibility vs Atomicity (🔥 VERY IMPORTANT)
 
-It involves:
+| Concept | Visibility | Atomicity |
+|---|---|---|
+| Meaning | Latest value seen by all threads | Operation completes fully as one unit |
+| Provided by `volatile` | ✅ Yes | ❌ No |
+| Example | `flag = false` | `count++` |
 
-Read
-Increment
-Write
+#### Why count++ is NOT atomic
 
-volatile int count;
-❌ Still not thread-safe.
+#### It involves:
+* Read
+* Increment
+* Write
 
-👉 Interview line:
+* volatile int count;
+* ❌ Still not thread-safe.
 
-volatile fixes visibility, not race conditions.
+> [!NOTE]
+> 👉 volatile fixes visibility, not race conditions.
 
-➤ Can volatile Replace Synchronization?
+#### ➤ Can volatile Replace Synchronization?
 
-❌ NO (in most cases)
+* ❌ NO (in most cases)
 
-Requirement	volatile	synchronized
-Visibility	✅	✅
-Atomicity	❌	✅
-Mutual exclusion	❌	✅
-Locking	❌	✅
-When volatile IS enough
-Only one thread writes
-Multiple threads read
-No compound operations
+| Requirement | `volatile` | `synchronized` |
+|---|---|---|
+| Visibility | ✅ Yes | ✅ Yes |
+| Atomicity | ❌ No | ✅ Yes |
+| Mutual Exclusion | ❌ No | ✅ Yes |
+| Locking | ❌ No | ✅ Yes |
 
-Example:
+#### When volatile IS enough
+* Only one thread writes
+* Multiple threads read
+* No compound operations
 
-volatile boolean shutdown;
-➤ Happens-Before Relationship (Core Concept)
-Definition
+* Example:
+* volatile boolean shutdown;
 
-A happens-before relationship guarantees that:
+### ➤ Happens-Before Relationship (Core Concept)
 
-Changes made by one thread before an action are visible to another thread after that action.
+> [!NOTE]
+> A happens-before relationship guarantees that:
+> Changes made by one thread before an action are visible to another thread after that action.
 
-volatile Rule
-Write to volatile → happens-before → subsequent read
+* volatile Rule
+* Write to volatile → happens-before → subsequent read
+  
+```java
 volatile boolean ready;
 
 ready = true; // write
+
 // happens-before
+
 if (ready) { // read
 }
-➤ Use Cases of volatile
+```
 
-✅ Status flags
-✅ Configuration refresh
-✅ Shutdown signals
-✅ One-time publication
+#### ➤ Use Cases of volatile
 
-❌ Counters
-❌ Shared mutable objects
-❌ Complex state updates
+* ✅ Status flags
+* ✅ Configuration refresh
+* ✅ Shutdown signals
+* ✅ One-time publication
 
-✅ Q21. What is the Java Memory Model (JMM)?
-Interview-Level Definition
+* ❌ Counters
+* ❌ Shared mutable objects
+* ❌ Complex state updates
 
-The Java Memory Model defines how threads interact through memory, specifying:
+#### ✅ Q21. What is the Java Memory Model (JMM)?
 
-How variables are stored
-When writes become visible
-What reordering is allowed
+> [!NOTE]
+> The Java Memory Model defines how threads interact through memory, specifying:
+* How variables are stored
+* When writes become visible
+* What reordering is allowed
 
-👉 JMM ensures platform-independent concurrency behavior.
+> [!TIP]
+> 👉 JMM ensures platform-independent concurrency behavior.
 
-🧠 Why JMM Exists
-CPUs reorder instructions
-Caches hide memory changes
-Compilers optimize aggressively
+#### 🧠 Why JMM Exists
+* CPUs reorder instructions
+* Caches hide memory changes
+* Compilers optimize aggressively
 
-Without JMM → Java would behave differently on different machines.
+#### Without JMM → Java would behave differently on different machines.
 
-🔍 Follow-ups (Q21)
+#### 🔍 Follow-ups (Q21)
+
 ➤ Heap vs Stack
-Heap	Stack
-Shared among threads	Thread-local
-Stores objects	Stores method calls
-Needs synchronization	Thread-safe by design
 
-👉 Local variables are thread-safe.
+| Aspect | Heap | Stack |
+|---|---|---|
+| Scope | Shared among threads | Thread-local |
+| Stores | Objects | Method calls / local variables |
+| Synchronization Need | ✅ Required for shared mutable data | ❌ Thread-safe by design |
 
-➤ Main Memory vs Working Memory
-Main Memory → Heap (shared)
-Working Memory → CPU cache / registers (thread-local)
+* 👉 Local variables are thread-safe.
 
-Threads:
+#### ➤ Main Memory vs Working Memory
+* Main Memory → Heap (shared)
+* Working Memory → CPU cache / registers (thread-local)
 
-Read from working memory
-Write back to main memory later
+* Threads:
+* Read from working memory
+* Write back to main memory later
+* This causes visibility issues.
 
-This causes visibility issues.
+#### ➤ Instruction Reordering
 
-➤ Instruction Reordering
+> [!NOTE]
+> Compilers/CPU may reorder instructions for performance as long as single-thread semantics are preserved.
 
-Compilers/CPU may reorder instructions for performance as long as single-thread semantics are preserved.
+* Example:
+* a = 1;
+* b = 2;
 
-Example:
+* May execute as:
+* b = 2;
+* a = 1;
 
-a = 1;
-b = 2;
+> [!NOTE]
+> 👉 In multithreading, this causes unexpected behavior.
 
-May execute as:
+#### ➤ How volatile Prevents Reordering
+* Inserts memory barriers
+* Prevents reordering around volatile reads/writes
 
-b = 2;
-a = 1;
+#### 🔥 Happens-Before Rules (MUST REMEMBER)
 
-👉 In multithreading, this causes unexpected behavior.
+* 1️⃣ Program order rule
+* 2️⃣ Monitor lock rule (synchronized)
+* 3️⃣ Volatile variable rule
+* 4️⃣ Thread start rule
+* 5️⃣ Thread join rule
+* 6️⃣ Transitivity rule
 
-➤ How volatile Prevents Reordering
-Inserts memory barriers
-Prevents reordering around volatile reads/writes
-🔥 Happens-Before Rules (MUST REMEMBER)
+> [!TIP]
+> 👉 If A happens-before B, then effects of A are visible to B.
 
-1️⃣ Program order rule
-2️⃣ Monitor lock rule (synchronized)
-3️⃣ Volatile variable rule
-4️⃣ Thread start rule
-5️⃣ Thread join rule
-6️⃣ Transitivity rule
+#### 🧠 COMMON TRAPS
 
-👉 Interview shortcut:
+* ❌ volatile makes code thread-safe
+* ❌ volatile makes operations atomic
+* ❌ synchronized is only about locking
+* ❌ Local variables need synchronization
 
-If A happens-before B, then effects of A are visible to B.
-
-🧠 COMMON INTERVIEW TRAPS
-
-❌ volatile makes code thread-safe
-❌ volatile makes operations atomic
-❌ synchronized is only about locking
-❌ Local variables need synchronization
-
-🎯 STRONG INTERVIEW CLOSING STATEMENT
-
-The Java Memory Model defines visibility and ordering guarantees, while volatile provides a lightweight visibility mechanism without locking. Correct concurrent programs rely on happens-before relationships rather than assumptions about execution order.
+> [!TIP]
+> 🎯 The Java Memory Model defines visibility and ordering guarantees, while volatile provides a lightweight visibility mechanism without locking. Correct concurrent programs rely on happens-before relationships rather than assumptions about execution order.
 
 ---
 ---
