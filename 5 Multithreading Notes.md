@@ -236,7 +236,8 @@ public class Test {
 * Better for testing
 * Preferred in frameworks (Spring, Executors)
 
-> [!NOTE] 👉 Runnable decouples what to do from how to execute.
+> [!NOTE]
+> 👉 Runnable decouples what to do from how to execute.
 
 #### 3️⃣ Using Callable (Return Value + Exception)
 
@@ -281,7 +282,8 @@ executor.shutdown();
 * Better performance
 * Prevents thread explosion
 
-> [!NOTE] 👉 Never create threads manually in production systems.
+> [!NOTE]
+>  👉 Never create threads manually in production systems.
 
 #### 🔍 Follow-ups (Q4)
 
@@ -302,7 +304,8 @@ executor.shutdown();
 * Thread pooling compatibility
 * Cleaner separation of concerns
 
-> [!NOTE] 👉 Runnable follows composition over inheritance.
+> [!NOTE]
+> 👉 Runnable follows composition over inheritance.
 
 #### ➤ Can we extend multiple threads?
 
@@ -351,7 +354,8 @@ Integer result = future.get();
 * isDone() → check completion
 * cancel() → cancel task
 
-> [!NOTE] 👉 Future represents the promise of a future result.
+> [!NOTE]
+>  👉 Future represents the promise of a future result.
 
 #### ➤ Can Runnable throw checked exception?
 
@@ -378,7 +382,8 @@ Step-by-Step Internal Flow
 | Multithreading | ✅ Yes | ❌ No |
 | Example | `t.start();` | `t.run();` |
 
-> [!NOTE] 👉 Calling run() directly **does NOT** start a new thread.
+> [!NOTE]
+>  👉 Calling run() directly **does NOT** start a new thread.
 
 #### ➤ Can we call start() twice?
 
@@ -408,87 +413,105 @@ Once terminated → cannot restart
 * Program counter
 * Heap is shared
 
-> [!NOTE] 🎯 Thread creation evolved from low-level Thread API to high-level Executor framework to improve performance, scalability, and safety in concurrent applications.
+> [!NOTE]
+>  🎯 Thread creation evolved from low-level Thread API to high-level Executor framework to improve performance, scalability, and safety in concurrent applications.
 
 ---
 ---
 
-🔥 JAVA MULTITHREADING — THREAD LIFECYCLE (IN-DEPTH)
-✅ Q7. Explain Thread Lifecycle in Java
-Interview-Level Definition
+# 🔥 JAVA MULTITHREADING — THREAD LIFECYCLE (IN-DEPTH)
+### ✅ Q7. Explain Thread Lifecycle in Java
 
-The thread lifecycle represents the different states a thread goes through from creation to termination, as defined by the JVM and exposed via Thread.State.
 
-A thread does not execute continuously—it transitions between states based on CPU scheduling, locks, and coordination methods.
+> [!NOTE]
+>  The thread lifecycle represents the different states a thread goes through from creation to termination, as defined by the JVM and exposed via Thread.State.
 
-🧠 Thread Lifecycle States (Java)
-1️⃣ NEW
+> A thread does not execute continuously—it transitions between states based on CPU scheduling, locks, and coordination methods.
+
+#### 🧠 Thread Lifecycle States (Java)
+#### 1️⃣ NEW
+
+```java
 Thread object is created
 start() is not yet called
 Thread t = new Thread(() -> {});
 // State: NEW
+```
 
-👉 Key Point:
-Memory exists, but no execution stack is created yet.
+> [!NOTE]
+>  👉 Key Point:
+> Memory exists, but no execution stack is created yet.
 
-2️⃣ RUNNABLE
-start() is called
-Thread is ready to run OR running
-JVM uses RUNNABLE for both states
-t.start();
+#### 2️⃣ RUNNABLE
+
+
+*start() is called
+
+> Thread is ready to run OR running
+> JVM uses RUNNABLE for both states
+
+> t.start();
 // State: RUNNABLE
 
-👉 Interview trap:
+> [!NOTE]
+>  👉 Java does NOT have a separate RUNNING > state, **RUNNABLE = ready + running**
 
-Java does NOT have a separate RUNNING state
-RUNNABLE = ready + running
+#### 3️⃣ BLOCKED
+>Thread is waiting to acquire a monitor lock.
 
-3️⃣ BLOCKED
-Thread is waiting to acquire a monitor lock
 Happens due to synchronized
+
+```java
+
 synchronized(lock) {
     // thread holds lock
 }
+```
 
-Another thread tries to enter the same block → BLOCKED
+* Another thread tries to enter the same block → BLOCKED
 
-👉 Thread is not sleeping, it is waiting for a lock
+> [!NOTE]
+> 👉 Thread is not sleeping, it is waiting for a lock
 
-4️⃣ WAITING
-Thread waits indefinitely
+#### 4️⃣ WAITING
+> Thread waits indefinitely
 Requires explicit notification
 
-Caused by:
+* Caused by:
 
-obj.wait();
-thread.join();
-LockSupport.park();
+* obj.wait();
+* thread.join();
+* LockSupport.park();
 
-👉 Thread releases lock and waits until someone wakes it up
+> [!NOTE]
+> 👉 Thread releases lock and waits until someone wakes it up
 
-5️⃣ TIMED_WAITING
-Thread waits for a fixed time
+#### 5️⃣ TIMED_WAITING
+> Thread waits for a fixed time
 
-Caused by:
+* Caused by:
 
-Thread.sleep(1000);
-obj.wait(1000);
-thread.join(1000);
+* Thread.sleep(1000);
+* obj.wait(1000);
+* thread.join(1000);
 
-👉 After timeout → automatically moves back to RUNNABLE
+> [!NOTE]
+>👉 After timeout → automatically moves back to RUNNABLE
 
-6️⃣ TERMINATED
-run() method finishes
-Thread execution ends permanently
+#### 6️⃣ TERMINATED
+* run() method finishes
+* Thread execution ends permanently
 
-👉 A terminated thread cannot be restarted
+> [!NOTE]
+>👉 A terminated thread cannot be restarted
 
 🔄 Lifecycle Flow (Narrative)
-NEW → start() → RUNNABLE
-RUNNABLE → synchronized lock unavailable → BLOCKED
-RUNNABLE → wait() → WAITING
-RUNNABLE → sleep()/wait(time) → TIMED_WAITING
-RUNNABLE → run() ends → TERMINATED
+* NEW → start() → RUNNABLE
+* RUNNABLE → synchronized lock unavailable → BLOCKED
+* RUNNABLE → wait() → WAITING
+* RUNNABLE → sleep()/wait(time) → TIMED_WAITING
+*RUNNABLE → run() ends → TERMINATED
+
 🔍 Follow-ups (Q7)
 ➤ Difference Between BLOCKED and WAITING
 Aspect	BLOCKED	WAITING
