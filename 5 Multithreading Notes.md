@@ -1039,90 +1039,92 @@ public static synchronized MyClass createInstance() {
 ---
 ---
 
-🔥 JAVA MULTITHREADING — INTER-THREAD COMMUNICATION (IN-DEPTH)
-✅ Q15. What is Inter-Thread Communication?
-Interview-Level Definition
+# 🔥 JAVA MULTITHREADING — INTER-THREAD COMMUNICATION (IN-DEPTH)
 
-Inter-thread communication is a mechanism that allows multiple threads to coordinate their execution by temporarily pausing and resuming each other based on shared conditions.
+## ✅ Q15. What is Inter-Thread Communication?
 
-It is primarily used when:
+> [!NOTE]
+> Inter-thread communication is a mechanism that allows multiple threads to coordinate their execution by temporarily pausing and resuming each other based on shared conditions.
 
-One thread produces data
-Another thread consumes or depends on that data
+> It is primarily used when:
+> * One thread produces data
+> * Another thread consumes or depends on that data
 
-Java provides three core methods for this:
+* Java provides three core methods for this:
+* wait()
+* notify()
+* notifyAll()
+  
+#### 🧠 Why Inter-Thread Communication Is Needed
 
-wait()
-notify()
-notifyAll()
-🧠 Why Inter-Thread Communication Is Needed
+#### Without it:
 
-Without it:
+* Threads either busy-wait (waste CPU)
+* Or proceed incorrectly (consume before produce)
 
-Threads either busy-wait (waste CPU)
-Or proceed incorrectly (consume before produce)
+#### With it:
 
-With it:
+* Threads sleep efficiently
+* Resume only when condition changes
 
-Threads sleep efficiently
-Resume only when condition changes
-
-👉 Interview line:
-
-Inter-thread communication enables cooperation, not competition, between threads.
+> [!NOTE]
+> 👉Inter-thread communication enables cooperation, not competition, between threads.
 
 🔹 Core Methods
-1️⃣ wait()
-Causes the current thread to release the lock
-Thread enters WAITING state
-Wakes up only when:
-notify() / notifyAll() is called
-OR it is interrupted
-2️⃣ notify()
-Wakes up one arbitrary waiting thread
-Choice of thread is not guaranteed
-3️⃣ notifyAll()
-Wakes up all waiting threads
-Threads compete again for the lock
-🔍 Follow-ups (Q15)
-➤ Why are wait(), notify(), notifyAll() in Object class?
-⭐ BEST INTERVIEW ANSWER
+
+#### 1️⃣ wait()
+* Causes the current thread to release the lock
+* Thread enters WAITING state
+* Wakes up only when:
+* notify() / notifyAll() is called OR it is interrupted
+  
+#### 2️⃣ notify()
+* Wakes up one arbitrary waiting thread
+* Choice of thread is not guaranteed
+  
+#### 3️⃣ notifyAll()
+* Wakes up all waiting threads
+* Threads compete again for the lock
+
+#### 🔍 Follow-ups (Q15)
+#### ➤ Why are wait(), notify(), notifyAll() in Object class?
 
 Because:
+* These methods work on monitor locks
+* Monitor locks belong to objects, not threads
+* Any object can act as a lock
 
-These methods work on monitor locks
-Monitor locks belong to objects, not threads
-Any object can act as a lock
+> [!NOTE]
+>  If these methods were in Thread:
+> A thread wouldn’t know which object’s lock to release
 
-If these methods were in Thread:
-
-A thread wouldn’t know which object’s lock to release
-
-👉 One-liner:
-
-Locks are object-based, not thread-based — hence these methods belong to Object.
+> [!NOTE]
+> 👉 Locks are object-based, not thread-based — hence these methods belong to Object.
 
 ➤ Difference Between notify() and notifyAll()
-Aspect	notify()	notifyAll()
-Threads awakened	One	All
-Thread selection	Random	All waiting
-Risk	Missed signals	Higher contention
-Safety	Risky	Safer
 
-👉 Interview advice:
-Use notifyAll() unless you are 100% sure only one thread should wake.
+| Aspect | `notify()` | `notifyAll()` |
+|---|---|---|
+| Threads Awakened | One | All |
+| Thread Selection | Random waiting thread | All waiting threads |
+| Risk | Missed signals | Higher contention |
+| Safety | Risky | Safer |
 
-➤ What is Spurious Wakeup?
-Definition
+> [!NOTE]
+> 👉 Advice: Use notifyAll() unless you are 100% sure only one thread should wake.
 
-A spurious wakeup happens when a thread:
+#### ➤ What is Spurious Wakeup?
 
-Wakes up from wait()
-Without notify() or notifyAll()
+> [!NOTE]
+> Definition : A spurious wakeup happens when a thread:
+> * Wakes up from wait()
+> * Without notify() or notifyAll()
 
-This is allowed by the JVM specification.
+* This is allowed by the JVM specification.
 
-➤ Why is wait() Called Inside a Loop?
+#### ➤ Why is wait() Called Inside a Loop?
+
+```java
 ❌ WRONG
 if (!condition) {
     lock.wait();
@@ -1131,32 +1133,35 @@ if (!condition) {
 while (!condition) {
     lock.wait();
 }
-Reasons:
+```
+#### Reasons:
 
-1️⃣ Handle spurious wakeups
-2️⃣ Re-check condition after waking
-3️⃣ Multiple threads may wake up
-4️⃣ Prevents invalid state execution
+* 1️⃣ Handle spurious wakeups
+* 2️⃣ Re-check condition after waking
+* 3️⃣ Multiple threads may wake up
+* 4️⃣ Prevents invalid state execution
 
-👉 Interview one-liner:
+> [!NOTE]
+> 👉 wait() is always used in a loop to re-validate the condition.
 
-wait() is always used in a loop to re-validate the condition.
+#### ✅ Q16. Producer–Consumer Problem
 
-✅ Q16. Producer–Consumer Problem
-Interview-Level Definition
+> [!NOTE]
+> The Producer–Consumer problem is a classic concurrency problem where:
+> Producer thread generates data
+> Consumer thread processes data
+> Both share a bounded buffer
 
-The Producer–Consumer problem is a classic concurrency problem where:
+> [!NOTE]
+> The challenge is to ensure:
+> Producer doesn’t produce when buffer is full
+> Consumer doesn’t consume when buffer is empty
 
-Producer thread generates data
-Consumer thread processes data
-Both share a bounded buffer
+#### 🔹 Implementation Using wait() / notifyAll()
 
-The challenge is to ensure:
+#### Example (Simplified)
 
-Producer doesn’t produce when buffer is full
-Consumer doesn’t consume when buffer is empty
-🔹 Implementation Using wait() / notifyAll()
-Example (Simplified)
+```java
 class Buffer {
     private int data;
     private boolean hasData = false;
@@ -1179,106 +1184,116 @@ class Buffer {
         return data;
     }
 }
-Key Interview Observations
-while used, not if
-Lock released during wait()
-notifyAll() avoids missed signals
-🔍 Follow-ups (Q16)
-➤ Using BlockingQueue (BEST PRACTICE)
+```
+
+#### Key Observations
+* while used, not if
+* Lock released during wait()
+* notifyAll() avoids missed signals
+  
+#### 🔍 Follow-ups (Q16)
+
+#### ➤ Using BlockingQueue (BEST PRACTICE)
+
+```java
 BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(5);
 
 queue.put(10);  // Producer
 queue.take();   // Consumer
-Why Better?
-No manual synchronization
-No wait/notify complexity
-Less error-prone
-Production-ready
+```
 
-👉 Interview verdict:
+#### Why Better?
+* No manual synchronization
+* No wait/notify complexity
+* Less error-prone
+* Production-ready
 
-Prefer BlockingQueue over wait/notify in real systems.
+> [!NOTE]
+> 👉 verdict: Prefer BlockingQueue over wait/notify in real systems.
 
-➤ Real-World Analogy
+#### ➤ Real-World Analogy
 
-🏭 Factory Conveyor Belt
+#### 🏭 Factory Conveyor Belt
 
-Producer → puts items
-Consumer → picks items
-Conveyor capacity → buffer size
-Full belt → producer waits
-Empty belt → consumer waits
-➤ Problems If notify() Is Used Incorrectly
+* Producer → puts items
+* Consumer → picks items
+* Conveyor capacity → buffer size
+* Full belt → producer waits
+* Empty belt → consumer waits
+  
+#### ➤ Problems If notify() Is Used Incorrectly
 
-❌ Missed notification
-❌ Deadlock-like waiting
-❌ Thread starvation
-❌ Only wrong thread wakes up
+* ❌ Missed notification
+* ❌ Deadlock-like waiting
+* ❌ Thread starvation
+* ❌ Only wrong thread wakes up
 
-Example:
+#### Example:
 
-Consumer wakes another consumer
-Producer never wakes
-System stalls
+* Consumer wakes another consumer
+* Producer never wakes
+* System stalls
 
-👉 Interview insight:
+> [!NOTE]
+> 👉 Insight: Many production deadlocks are caused by incorrect notify usage.
 
-Many production deadlocks are caused by incorrect notify usage.
+🧠 COMMON TRAPS
 
-🧠 COMMON INTERVIEW TRAPS
+* ❌ Calling wait() without synchronized → IllegalMonitorStateException
+* ❌ Using if instead of while
+* ❌ Using notify blindly
+* ❌ Forgetting shared condition variable
+* ❌ Mixing sleep with wait
 
-❌ Calling wait() without synchronized → IllegalMonitorStateException
-❌ Using if instead of while
-❌ Using notify blindly
-❌ Forgetting shared condition variable
-❌ Mixing sleep with wait
-
-🎯 STRONG INTERVIEW CLOSING STATEMENT
-
-Inter-thread communication enables efficient coordination by suspending threads until conditions are met, but misuse of wait/notify easily leads to subtle and hard-to-debug concurrency bugs. Hence, higher-level concurrency utilities are preferred in modern Java.
+> [!NOTE]
+> 🎯 Inter-thread communication enables efficient coordination by suspending threads until conditions are met, but misuse of wait/notify easily leads to subtle and hard-to-debug concurrency bugs. Hence, higher-level concurrency utilities are preferred in modern Java.
 
 ---
 ---
 
-🔥 JAVA MULTITHREADING — DEADLOCK, LIVELOCK, STARVATION (IN-DEPTH)
-✅ Q17. What is Deadlock?
-Interview-Level Definition
+#### 🔥 JAVA MULTITHREADING — DEADLOCK, LIVELOCK, STARVATION (IN-DEPTH)
 
-A deadlock is a situation where two or more threads are permanently blocked, each waiting for a resource held by another, so none of them can proceed.
+#### ✅ Q17. What is Deadlock?
 
-In deadlock:
-Threads are alive, but the system is stuck forever.
+> [!NOTE]
+> A deadlock is a situation where two or more threads are permanently blocked, each waiting for a resource held by another, so none of them can proceed.
 
-🔁 Classic Deadlock Scenario
-Thread A holds Lock 1 → waits for Lock 2
-Thread B holds Lock 2 → waits for Lock 1
-➡ Circular waiting → deadlock
-🔍 Follow-ups (Q17)
-➤ 4 Coffman Conditions for Deadlock (🔥 VERY IMPORTANT)
+* In deadlock:
+* Threads are alive, but the system is stuck forever.
 
-Deadlock can occur only if all four conditions are true:
+#### 🔁 Classic Deadlock Scenario
+* Thread A holds Lock 1 → waits for Lock 2
+* Thread B holds Lock 2 → waits for Lock 1
+* ➡ Circular waiting → deadlock
 
-1️⃣ Mutual Exclusion
+#### 🔍 Follow-ups (Q17)
 
-Resource can be held by only one thread at a time
+#### ➤ 4 Coffman Conditions for Deadlock (🔥 VERY IMPORTANT)
 
-2️⃣ Hold and Wait
+##### Deadlock can occur only if all four conditions are true:
 
-Thread holds one resource while waiting for another
+##### 1️⃣ Mutual Exclusion
 
-3️⃣ No Preemption
+* Resource can be held by only one thread at a time
 
-Resource cannot be forcibly taken away
+##### 2️⃣ Hold and Wait
 
-4️⃣ Circular Wait
+* Thread holds one resource while waiting for another
 
-Threads form a circular chain of waiting
+##### 3️⃣ No Preemption
 
-👉 Interview rule:
+* Resource cannot be forcibly taken away
 
-Break any one of these → deadlock is prevented.
+##### 4️⃣ Circular Wait
 
-➤ Example Code (Deadlock)
+* Threads form a circular chain of waiting
+
+> [!NOTE]
+> 👉 Rule: Break any one of these → deadlock is prevented.
+
+##### ➤ Example Code (Deadlock)
+
+```java
 class DeadlockExample {
     static final Object lock1 = new Object();
     static final Object lock2 = new Object();
@@ -1310,7 +1325,9 @@ class DeadlockExample {
     }
 }
 
-👉 Both threads wait forever.
+```
+
+#### 👉 Both threads wait forever.
 
 ➤ How to Detect Deadlock?
 1️⃣ Thread Dump (MOST COMMON)
