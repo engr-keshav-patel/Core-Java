@@ -1326,112 +1326,130 @@ class DeadlockExample {
 }
 
 ```
-
 #### 👉 Both threads wait forever.
 
-➤ How to Detect Deadlock?
-1️⃣ Thread Dump (MOST COMMON)
-jstack <pid>
-Shows “Found one Java-level deadlock”
-Lists locked monitors and waiting threads
-2️⃣ Monitoring Tools
-VisualVM
-JConsole
-Java Flight Recorder
-3️⃣ Logs + Hanging Threads
-Requests stuck
-CPU low but app unresponsive
-➤ How to Prevent Deadlock?
-✅ 1️⃣ Lock Ordering (BEST PRACTICE)
-Always acquire locks in same order
+#### ➤ How to Detect Deadlock?
+
+###### 1️⃣ Thread Dump (MOST COMMON)
+* jstack <pid>
+* Shows “Found one Java-level deadlock”
+* Lists locked monitors and waiting threads
+  
+###### 2️⃣ Monitoring Tools
+* VisualVM
+* JConsole
+* Java Flight Recorder
+###### 3️⃣ Logs + Hanging Threads
+* Requests stuck
+* CPU low but app unresponsive
+
+#### ➤ How to Prevent Deadlock?
+
+###### ✅ 1️⃣ Lock Ordering (BEST PRACTICE)
+
+* Always acquire locks in same order
 synchronized(lock1) {
     synchronized(lock2) {
     }
 }
-✅ 2️⃣ Avoid Nested Locks
-Reduce synchronized blocks
-Keep critical sections small
-✅ 3️⃣ Use Timeouts
+
+###### ✅ 2️⃣ Avoid Nested Locks
+* Reduce synchronized blocks
+* Keep critical sections small
+  
+###### ✅ 3️⃣ Use Timeouts
 lock.tryLock(1, TimeUnit.SECONDS);
-✅ 4️⃣ Use Higher-Level Concurrency APIs
-ExecutorService
-BlockingQueue
-ConcurrentHashMap
-🧠 Interview One-Liner
 
-Deadlocks are design problems, not coding mistakes.
+###### ✅ 4️⃣ Use Higher-Level Concurrency APIs
+* ExecutorService
+* BlockingQueue
+* ConcurrentHashMap
+  
+> [!NOTE]
+> 🧠 Deadlocks are design problems, not coding mistakes.
 
-✅ Q18. What is Livelock?
-Interview-Level Definition
+#### ✅ Q18. What is Livelock?
 
-A livelock occurs when threads are not blocked, but they continuously change state in response to each other, making no progress.
+> [!NOTE]
+> A livelock occurs when threads are not blocked, but they continuously change state in response to each other, making no progress.
 
-In livelock:
-Threads are active, but the system is busy doing nothing useful.
+* In livelock:
+* Threads are active, but the system is busy doing nothing useful.
 
-🔁 Livelock Example (Conceptual)
-Thread A → “You go first”
-Thread B → “No, you go first”
-Both keep yielding → infinite loop
-➤ Difference Between Deadlock and Livelock
-Aspect	Deadlock	Livelock
-Thread state	BLOCKED	RUNNABLE
-CPU usage	Low	High
-Progress	None	None
-Threads	Waiting	Actively retrying
-➤ Real-World Example
+#### 🔁 Livelock Example (Conceptual)
+* Thread A → “You go first”
+* Thread B → “No, you go first”
+* Both keep yielding → infinite loop
 
-🚶 Two people trying to pass in a narrow hallway
+#### ➤ Difference Between Deadlock and Livelock
 
-Both step left → block
-Both step right → block
-They keep adjusting → livelock
-➤ How to Fix Livelock?
-Add random delay
-Backoff strategy
-Limit retries
-✅ Q19. What is Starvation?
-Interview-Level Definition
+| Aspect | Deadlock | Livelock |
+|---|---|---|
+| Thread State | `BLOCKED` | `RUNNABLE` |
+| CPU Usage | Low | High |
+| Progress | None | None |
+| Thread Behavior | Waiting | Actively retrying |
 
-Starvation occurs when a thread never gets CPU or resources because other threads continuously take precedence.
+#### ➤ Real-World Example
 
-Thread is ready but never scheduled.
+#### 🚶 Two people trying to pass in a narrow hallway
 
-🔍 Follow-ups (Q19)
-➤ Difference Between Starvation and Deadlock
-Aspect	Starvation	Deadlock
-Cause	Resource unfairness	Circular wait
-Threads	Runnable	Blocked
-Recovery	Possible	Impossible without intervention
-➤ How Thread Priority Causes Starvation
-highPriorityThread.setPriority(10);
-lowPriorityThread.setPriority(1);
-High-priority thread dominates CPU
-Low-priority thread rarely executes
+* Both step left → block
+* Both step right → block
+* They keep adjusting → livelock
 
-👉 Common in priority-based scheduling
+#### ➤ How to Fix Livelock?
+* Add random delay
+* Backoff strategy
+* Limit retries
 
-➤ How to Prevent Starvation?
-✅ 1️⃣ Avoid Priority-Based Logic
-Do not rely on thread priority for correctness
-✅ 2️⃣ Fair Locks
-new ReentrantLock(true); // fair lock
-✅ 3️⃣ Use Thread Pools
-Controlled scheduling
-Balanced execution
-✅ 4️⃣ Reduce Lock Contention
-Smaller critical sections
-Better data partitioning
-🧠 COMMON INTERVIEW TRAPS
+#### ✅ Q19. What is Starvation?
 
-❌ Deadlock = infinite loop → WRONG
-❌ Livelock = deadlock → WRONG
-❌ Priority guarantees execution → WRONG
-❌ notify() always safe → WRONG
+> [!NOTE]
+> Starvation occurs when a thread never gets CPU or resources because other threads continuously take precedence.
 
-🎯 STRONG INTERVIEW CLOSING STATEMENT
+* Thread is ready but never scheduled.
 
-Deadlock blocks threads permanently, livelock keeps them busy without progress, and starvation denies them resources indefinitely. All three are symptoms of poor concurrency design and are best avoided using disciplined locking strategies and higher-level concurrency utilities.
+#### 🔍 Follow-ups (Q19)
+
+#### ➤ Difference Between Starvation and Deadlock
+
+| Aspect | Starvation | Deadlock |
+|---|---|---|
+| Cause | Resource unfairness | Circular wait |
+| Thread State | `RUNNABLE` | `BLOCKED` |
+| Recovery | Possible | Impossible without intervention |
+
+#### ➤ How Thread Priority Causes Starvation
+
+* highPriorityThread.setPriority(10);
+* lowPriorityThread.setPriority(1);
+* High-priority thread dominates CPU
+* Low-priority thread rarely executes
+> [!NOTE]
+> 👉 Common in priority-based scheduling
+
+#### ➤ How to Prevent Starvation?
+* ✅ 1️⃣ Avoid Priority-Based Logic
+* Do not rely on thread priority for correctness
+* ✅ 2️⃣ Fair Locks
+* new ReentrantLock(true); // fair lock
+* ✅ 3️⃣ Use Thread Pools
+* Controlled scheduling
+* Balanced execution
+* ✅ 4️⃣ Reduce Lock Contention
+* Smaller critical sections
+* Better data partitioning
+  
+#### 🧠 COMMON TRAPS
+
+* ❌ Deadlock = infinite loop → WRONG
+* ❌ Livelock = deadlock → WRONG
+* ❌ Priority guarantees execution → WRONG
+* ❌ notify() always safe → WRONG
+
+> [!NOTE]
+> 🎯 Deadlock blocks threads permanently, livelock keeps them busy without progress, and starvation denies them resources indefinitely. All three are symptoms of poor concurrency design and are best avoided using disciplined locking strategies and higher-level concurrency utilities.
 
 ---
 ---
