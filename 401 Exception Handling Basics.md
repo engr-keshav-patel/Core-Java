@@ -148,6 +148,16 @@ Throwable
         └── IllegalArgumentException
 ```
 
+```mermaid
+flowchart TD
+    A[Throwable]
+    A --> B[Error]
+    A --> C[Exception]
+    C --> D[Checked Exceptions]
+    C --> E[RuntimeException]
+```
+
+
 #### Key Understanding
 
 * Throwable is root parent
