@@ -51,6 +51,18 @@ In fund transfer:
 
 ## 🔹 Core Concepts
 
+```mermaid
+sequenceDiagram
+    participant A as methodA
+    participant B as methodB
+    participant C as methodC
+
+    A->>B: call
+    B->>C: call
+    C-->>B: exception
+    B-->>A: propagate
+```
+
 ### 1) What Is Exception Propagation?
 
 * Exception occurs in method
