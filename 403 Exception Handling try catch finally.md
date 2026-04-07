@@ -62,6 +62,15 @@
 
 ## 🔹 Core Concepts
 
+```mermaid
+flowchart TD
+    A[try block] --> B{Exception occurs?}
+    B -->|yes| C[catch block]
+    B -->|no| D[skip catch]
+    C --> E[finally]
+    D --> E
+```
+
 ### 1) What Is try-catch Block?
 
 * try contains code that may throw exception
