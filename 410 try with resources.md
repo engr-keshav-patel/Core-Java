@@ -54,6 +54,12 @@
 
 ## 🔹 Core Concepts
 
+```mermaid
+flowchart TD
+    A[open resource] --> B[use resource]
+    B --> C[auto close]
+```
+
 ### 1) What Is Try-With-Resources?
 
 * Resource is created inside try(...)
