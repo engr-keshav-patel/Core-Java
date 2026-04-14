@@ -41,7 +41,7 @@
 * Stack → Deque
 * Hashtable → HashMap
 
-## ⚡ Interview Quick Comparison
+## ⚡   Quick Comparison
 
 | Topic       | Key Point                             |
 | ----------- | ------------------------------------- |
@@ -57,9 +57,9 @@
 * ❌ Confusing Collection vs Collections
 * ❌ Using Stack instead of Deque
 * ❌ Modifying list inside for-each loop
-* ❌ Forgetting generics in interview examples
+* ❌ Forgetting generics in   examples
 
-> 👉 Interview Tip: Always say “code to interface, not implementation”
+> 👉   Tip: Always say “code to interface, not implementation”
 
 ---
 
@@ -108,9 +108,9 @@
 > HashSet → avg O(1)
 > ArrayList → O(n)
 
-## ⚡ Interview Quick Comparison
+## ⚡   Quick Comparison
 
-| Method      | Purpose       | Interview Memory |
+| Method      | Purpose       |   Memory |
 | ----------- | ------------- | ---------------- |
 | add()       | single insert | one object       |
 | addAll()    | bulk insert   | batch jobs       |
@@ -125,7 +125,7 @@
 * ❌ Saying contains() is always O(1)
 * ❌ Forgetting equals() + hashCode() for HashSet
 
-> 👉 Interview Tip: Always say behavior depends on implementation
+> 👉   Tip: Always say behavior depends on implementation
 
 ---
 
@@ -178,7 +178,7 @@
 * ArrayList ❌ not thread-safe
 * use CopyOnWriteArrayList / synchronized wrapper if needed
 
-## ⚡ Interview Quick Comparison
+## ⚡   Quick Comparison
 
 | Feature       | ArrayList     | LinkedList         | Vector        |
 | ------------- | ------------- | ------------------ | ------------- |
@@ -196,7 +196,7 @@
 * ❌ Confusing size vs capacity
 * ❌ Using LinkedList for read-heavy APIs
 
-> 👉 Interview Tip: For 90% backend APIs → ArrayList
+> 👉   Tip: For 90% backend APIs → ArrayList
 
 ## 🎯 30-Second Spoken Answer
 
@@ -246,7 +246,7 @@
 > 🔥 Critical trap
 > mutable fields in hashCode() = broken lookup / duplicate bugs
 
-## ⚡ Interview Quick Comparison
+## ⚡   Quick Comparison
 
 | Feature     | HashSet   | LinkedHashSet         | TreeSet        |
 | ----------- | --------- | --------------------- | -------------- |
@@ -263,7 +263,7 @@
 * ❌ Using mutable fields in equality logic
 * ❌ inconsistent compareTo() in TreeSet
 
-> 👉 Interview Tip: Uniqueness = logical equality, not reference equality
+> 👉   Tip: Uniqueness = logical equality, not reference equality
 
 ## 🌍 Real-World Example
 
@@ -323,7 +323,7 @@
 > custom key → must override equals() + hashCode()
 > prefer immutable keys
 
-## ⚡ Interview Quick Comparison
+## ⚡   Quick Comparison
 
 | Map Type          | Best Use             | Complexity |
 | ----------------- | -------------------- | ---------- |
@@ -341,7 +341,7 @@
 * ❌ Assuming same hash = same key
 * ❌ Using Hashtable in modern microservices
 
-> 👉 Interview Tip: Same hash only means same bucket, not duplicate key
+> 👉   Tip: Same hash only means same bucket, not duplicate key
 
 ## 🌍 Real-World Example
 
