@@ -1,4 +1,4 @@
-# 🔥 Basics of Exception Handling — 30 SECOND INTERVIEW NOTES
+# 🔥 Basics of Exception Handling  
 
 ## Source condensed from your detailed notes
 
@@ -43,9 +43,9 @@
 * expensive object creation + stack trace
 * 👉 never use for normal flow
 
-## ⚡ Interview Quick Comparison
+## ⚡   Quick Comparison
 
-| Type             | Meaning               | Interview Use          |
+| Type             | Meaning               |   Use          |
 | ---------------- | --------------------- | ---------------------- |
 | Exception        | Recoverable app issue | Handle properly        |
 | RuntimeException | Bug / bad input       | Prevent via validation |
@@ -61,7 +61,7 @@
 * Catching Throwable or Error
 * ❗ In banking: missing rollback = money inconsistency bug
 
-> 👉 Interview Tip: Mention rollback + retries + idempotency
+> 👉   Tip: Mention rollback + retries + idempotency
 
 ## 🌍 Real-World Example
 
@@ -77,7 +77,7 @@
 > Exception handling in Java is used to manage runtime abnormal conditions so the application can recover gracefully or fail safely. Throwable is the root class, where Exception handles recoverable issues and Error represents serious JVM failures. In production, good exception handling means specific catch blocks, proper logging, transaction rollback, and retry support. In banking systems, this is critical for balance consistency and customer trust.
 
 ---
-# 🔥 Checked vs Unchecked Exceptions — 30 SECOND INTERVIEW NOTES
+# 🔥 Checked vs Unchecked Exceptions  
 
 > Source condensed from your detailed notes
 
@@ -110,7 +110,7 @@
 
 ---
 
-## ⚡ Interview Quick Comparison
+## ⚡   Quick Comparison
 
 | Feature        | Checked                    | Unchecked                  |
 | -------------- | -------------------------- | -------------------------- |
@@ -130,7 +130,7 @@
 * Losing original cause ❌
 * `throws Exception` in service layer ❌
 
-👉 **Interview Tip:**
+👉 **  Tip:**
 Use **checked for infra failures**, **unchecked for domain/business rule violations**
 
 ---
@@ -152,7 +152,7 @@ Checked exceptions are compile-time enforced and used for recoverable external f
 ---
 ---
 
-# 🔥 try, catch, finally — 30 SECOND INTERVIEW NOTES
+# 🔥 try, catch, finally  
 
 > Source condensed from your detailed notes
 
@@ -187,7 +187,7 @@ Checked exceptions are compile-time enforced and used for recoverable external f
 
 ---
 
-## ⚡ Interview Quick Comparison
+## ⚡   Quick Comparison
 
 | Block     | Purpose              | Banking Use           |
 | --------- | -------------------- | --------------------- |
@@ -204,7 +204,7 @@ Checked exceptions are compile-time enforced and used for recoverable external f
 * Writing cleanup in `catch` instead of `finally` ❌
 * Large business logic inside `finally` ❌
 
-👉 **Interview Tip:** Never `return` from `finally` — it hides real exceptions
+👉 **  Tip:** Never `return` from `finally` — it hides real exceptions
 
 ---
 
@@ -225,7 +225,7 @@ Checked exceptions are compile-time enforced and used for recoverable external f
 ---
 ---
 
-# 🔥 Multiple catch Blocks — 30 SECOND INTERVIEW NOTES
+# 🔥 Multiple catch Blocks  
 
 > Source condensed from your detailed notes
 
@@ -251,7 +251,7 @@ Checked exceptions are compile-time enforced and used for recoverable external f
 
 ---
 
-## ⚡ Interview Quick Comparison
+## ⚡   Quick Comparison
 
 | Case                       | Best Practice         |
 | -------------------------- | --------------------- |
@@ -269,7 +269,7 @@ Checked exceptions are compile-time enforced and used for recoverable external f
 * Duplicate catch logic instead of multi-catch ❌
 * Catching `Throwable` in business code ❌
 
-👉 **Interview Tip:** JVM always picks the **first matching catch block**
+👉 **  Tip:** JVM always picks the **first matching catch block**
 
 ---
 
@@ -290,7 +290,7 @@ Java supports multiple catch blocks so different exception types can be handled 
 ---
 ---
 
-# 🔥 Exception Propagation — 30 SECOND INTERVIEW NOTES
+# 🔥 Exception Propagation  
 
 > Source condensed from your detailed notes
 
@@ -318,7 +318,7 @@ Java supports multiple catch blocks so different exception types can be handled 
 
 ---
 
-## ⚡ Interview Quick Comparison
+## ⚡   Quick Comparison
 
 | Layer          | Responsibility              |
 | -------------- | --------------------------- |
@@ -336,7 +336,7 @@ Java supports multiple catch blocks so different exception types can be handled 
 * Logging at every layer ❌
 * Thinking child thread exception reaches parent ❌
 
-👉 **Interview Tip:** Best place to stop propagation = **service layer**
+👉 **  Tip:** Best place to stop propagation = **service layer**
 
 ---
 
