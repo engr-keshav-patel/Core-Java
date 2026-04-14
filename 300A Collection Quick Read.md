@@ -1,4 +1,4 @@
-# 🔥 Java Collections Framework (JCF) — 30 SECOND INTERVIEW NOTES
+# 🔥 Java Collections Framework (JCF)
 
 ## ✅ Definition
 
@@ -65,7 +65,7 @@
 
 ---
 
-# 🔥 Java Collection Interface — 30 SECOND INTERVIEW NOTES
+# 🔥 Java Collection Interface
 
 ## ✅ Definition
 
@@ -131,7 +131,7 @@
 
 ---
 
-# 🔥 Java List Interface — 30 SECOND INTERVIEW NOTES
+# 🔥 Java List Interface
 
 ## ✅ Definition
 
@@ -206,7 +206,7 @@
 
 ---
 
-# 🔥 Java Set Interface — 30 SECOND INTERVIEW NOTES
+# 🔥 Java Set Interface 
 
 ## ✅ Definition
 
@@ -281,7 +281,7 @@
 
 ---
 
-# 🔥 Java Map Interface — 30 SECOND INTERVIEW NOTES
+# 🔥 Java Map Interface
 
 ## ✅ Definition
 
