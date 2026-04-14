@@ -1,4 +1,4 @@
-# 🔥 Collections Utility Class — 30 SECOND INTERVIEW NOTES
+# 🔥 Collections Utility Class  
 
 ## ✅ Definition
 
@@ -37,7 +37,7 @@
 * binarySearch() → O(log n)
 * only valid on sorted list
 
-## ⚡ Interview Quick Comparison
+## ⚡    Quick Comparison
 
 | Utility            | Purpose             | Trap                              |
 | ------------------ | ------------------- | --------------------------------- |
@@ -54,7 +54,7 @@
 * ❌ using synchronized wrapper in high traffic systems
 * ❌ manual sorting instead of JDK methods
 
-> 👉 Interview Tip: Collections = algorithms + wrappers only
+> 👉    Tip: Collections = algorithms + wrappers only
 
 ## 🌍 Real-World Example
 
@@ -69,12 +69,12 @@
 
 > “Collections is a static utility class in JCF that provides ready-made algorithms like sorting, reversing, binary search, min/max, and wrappers such as synchronized and unmodifiable collections. It works on existing collection objects and helps reduce boilerplate with optimized JDK implementations. In banking systems, it is commonly used for transaction sorting, read-only fraud rules, and low-volume thread-safe admin lists.”
 
-> 👉 Interview Gold Line:
+> 👉    Gold Line:
 > “Collection stores data, Collections operates on data.”
 
 ---
 
-# 🔥 Generics + Collections — 30 SECOND INTERVIEW NOTES
+# 🔥 Generics + Collections  
 
 ## ✅ Definition
 
@@ -120,7 +120,7 @@
 > 👉 Easy memory line:
 > Wildcard = unknown producer, Object = exact container
 
-## ⚡ Interview Quick Comparison
+## ⚡    Quick Comparison
 
 | Type         | Meaning                | Best Use                 |
 | ------------ | ---------------------- | ------------------------ |
@@ -147,13 +147,13 @@
 
 ## 🎯 30-Second Spoken Answer
 
-> “Generics make collections type-safe by validating types at compile time and preventing runtime casting issues like ClassCastException. The key interview concept is type erasure, where generic type information is removed at runtime for backward compatibility. List<?> is used for reusable read-only utilities, while strongly typed collections like List<Transaction> make backend APIs safer and more readable.”
+> “Generics make collections type-safe by validating types at compile time and preventing runtime casting issues like ClassCastException. The key    concept is type erasure, where generic type information is removed at runtime for backward compatibility. List<?> is used for reusable read-only utilities, while strongly typed collections like List<Transaction> make backend APIs safer and more readable.”
 
-> 👉 Interview Gold Line:
+> 👉    Gold Line:
 > “Generics shift bugs left—from runtime failures to compile-time safety.”
 
 ---
-# 🔥 Java Collections Performance & Big-O — 30 SECOND INTERVIEW NOTES
+# 🔥 Java Collections Performance & Big-O  
 
 ## ✅ Definition
 
@@ -190,7 +190,7 @@
 * TreeMap always = O(log n)
 * ArrayList is usually best memory choice
 
-## ⚡ Interview Quick Comparison
+## ⚡    Quick Comparison
 
 | Need           | Best Choice | Why             |
 | -------------- | ----------- | --------------- |
@@ -221,18 +221,18 @@
 
 > “Collection performance should always be chosen based on access pattern. ArrayList is best for read-heavy APIs because get() is O(1), while HashMap is ideal for exact business-key lookups with O(1) average search. TreeMap is preferred for sorted reports and range queries with O(log n) complexity. In real banking systems, this directly affects statement latency, fraud lookup speed, and reporting scalability.”
 
-> 👉 Interview Gold Line:
+> 👉    Gold Line:
 > “Optimize for access pattern: read, search, sort, or queue.”
 
 ---
 
-This version is easier because it follows the interview thought process:
+This version is easier because it follows the    thought process:
 
 * Use case → Best DS → Complexity → Trap
 
 ---
 
-# 🔥 Real-World & Tricky Collection Scenarios — 30 SECOND INTERVIEW NOTES
+# 🔥 Real-World & Tricky Collection Scenarios  
 
 ## ✅ Definition
 
@@ -277,7 +277,7 @@ This version is easier because it follows the interview thought process:
   * shallow copy = new list, same objects
   * deep copy = new objects + new list
 
-## ⚡ Interview Quick Comparison
+## ⚡    Quick Comparison
 
 | Problem                  | Best Solution     | Why                  |
 | ------------------------ | ----------------- | -------------------- |
@@ -294,7 +294,7 @@ This version is easier because it follows the interview thought process:
 * ❌ HashSet when order matters
 * ❌ shared HashMap in multi-threading
 
-> 👉 Interview Tip: Keys should always be immutable business identity
+> 👉    Tip: Keys should always be immutable business identity
 
 > 🔥 Important:
 > Most collection bugs are design bugs, not syntax bugs
@@ -310,7 +310,7 @@ This version is easier because it follows the interview thought process:
 
 > “These questions test production debugging skills more than syntax. The biggest rules are: always maintain the equals/hashCode contract, never use mutable keys in maps, use ConcurrentHashMap for shared mutable caches, and prefer LinkedHashSet for ordered duplicate removal. For shared reference data like fraud rules or IFSC master lists, immutable collections such as List.of() are the safest design.”
 
-> 👉 Interview Gold Line:
+> 👉    Gold Line:
 > “In collections, most production failures come from mutability and broken equality contracts.”
 
 ---
@@ -321,7 +321,7 @@ This format is easier because it follows:
 
 ---
 
-# 🔥 Java Collections — Common Interview Traps (30 SEC)
+# 🔥 Java Collections — Common    Traps (30 SEC)
 
 ## ✅ Definition
 
@@ -365,7 +365,7 @@ This format is easier because it follows:
 * concurrent heap updates break priority
 * ✅ use PriorityBlockingQueue
 
-## ⚡ Interview Quick Comparison
+## ⚡    Quick Comparison
 
 | Wrong Assumption         | Real Risk            | Correct Fix            |
 | ------------------------ | -------------------- | ---------------------- |
@@ -396,7 +396,7 @@ This format is easier because it follows:
 
 > “These questions test internal collection behavior. HashMap order is unpredictable because it depends on bucket hashing and resize history, so LinkedHashMap should be used when order matters. TreeMap is slower because it maintains sorted keys using a Red-Black Tree. CopyOnWriteArrayList is read-optimized but expensive for writes, and PriorityQueue must be replaced by PriorityBlockingQueue in concurrent priority workflows.”
 
-> 👉 Interview Gold Line:
+> 👉    Gold Line:
 > “Never choose a collection by habit—choose by internal behavior.”
 
 ---
