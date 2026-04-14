@@ -1,4 +1,4 @@
-# 🔥 Iterator / ListIterator / Enumeration — 30 SECOND INTERVIEW NOTES
+# 🔥 Iterator / ListIterator / Enumeration  
 
 ## ✅ Definition
 
@@ -47,7 +47,7 @@
 * iterates on snapshot copy
 * safe reads, expensive writes
 
-## ⚡ Interview Quick Comparison
+## ⚡   Quick Comparison
 
 | Feature   | Iterator        | ListIterator | Enumeration |
 | --------- | --------------- | ------------ | ----------- |
@@ -64,7 +64,7 @@
 * ❌ Using ListIterator on Set
 * ❌ Saying Enumeration supports remove
 
-> 👉 Interview Tip: Enhanced for-loop internally uses Iterator
+> 👉   Tip: Enhanced for-loop internally uses Iterator
 
 ## 🌍 Real-World Example
 
@@ -77,14 +77,14 @@
 
 ## 🎯 30-Second Spoken Answer
 
-> “Iterator is the standard traversal mechanism in JCF and is mainly used for safe sequential traversal with iterator.remove() support. ListIterator extends this for lists by adding backward traversal and update operations like add and set. Enumeration is a legacy read-only traversal API used with old classes like Vector and Hashtable. The most important interview concept is fail-fast behavior, where modCount mismatch causes ConcurrentModificationException.”
+> “Iterator is the standard traversal mechanism in JCF and is mainly used for safe sequential traversal with iterator.remove() support. ListIterator extends this for lists by adding backward traversal and update operations like add and set. Enumeration is a legacy read-only traversal API used with old classes like Vector and Hashtable. The most important   concept is fail-fast behavior, where modCount mismatch causes ConcurrentModificationException.”
 
-> 👉 Interview Gold Line:
+> 👉   Gold Line:
 > “Use Iterator for safe deletion, ListIterator for list navigation, and avoid Enumeration in modern code.”
 
 ---
 
-# 🔥 Comparable vs Comparator — 30 SECOND INTERVIEW NOTES
+# 🔥 Comparable vs Comparator  
 
 ## ✅ Definition
 
@@ -125,7 +125,7 @@
 > ✅ Integer.compare(a, b)
 > avoids overflow bugs
 
-## ⚡ Interview Quick Comparison
+## ⚡   Quick Comparison
 
 | Feature           | Comparable      | Comparator            |
 | ----------------- | --------------- | --------------------- |
@@ -143,7 +143,7 @@
 * ❌ modifying sorted field after insertion
 * ❌ using Comparable for multiple business rules
 
-> 👉 Interview Tip: Comparator is preferred in modern Java
+> 👉   Tip: Comparator is preferred in modern Java
 
 ## 🌍 Real-World Example
 
@@ -157,13 +157,13 @@
 
 > “Comparable is used when an object has one natural ordering, such as transaction ID or account number, and the logic is defined inside the class using compareTo(). Comparator is used when multiple business sorting strategies are needed, such as sorting customers by balance, age, or fraud score. In modern Java, Comparator with lambda expressions is preferred, especially for service-layer sorting and priority queues.”
 
-> 👉 Interview Gold Line:
+> 👉   Gold Line:
 > “Comparable = identity sort, Comparator = business strategy sort.”
 
 ---
 ---
 
-# 🔥 Queue / Deque / PriorityQueue — 30 SECOND INTERVIEW NOTES
+# 🔥 Queue / Deque / PriorityQueue  
 
 ## ✅ Definition
 
@@ -201,7 +201,7 @@
 > only repeated poll() gives sorted sequence
 > iterator output can be unsorted
 
-## ⚡ Interview Quick Comparison
+## ⚡   Quick Comparison
 
 | Structure     | Best Use            | Key Property |
 | ------------- | ------------------- | ------------ |
@@ -218,7 +218,7 @@
 * ❌ Using add/remove in worker loops
 * ❌ confusing FIFO with priority scheduling
 
-> 👉 Interview Tip: Heap guarantees root priority, not full order
+> 👉   Tip: Heap guarantees root priority, not full order
 
 ## 🌍 Real-World Example
 
@@ -233,12 +233,12 @@
 
 > “Queue is used for ordered workflow processing such as payment retries, usually following FIFO. Deque supports operations from both ends and is commonly used as a modern stack through ArrayDeque. PriorityQueue is used when business priority matters, such as fraud severity or SLA escalation, and internally it uses a binary heap, so only the head element is guaranteed highest priority. A common trap is assuming iteration returns sorted order, which is incorrect.”
 
-> 👉 Interview Gold Line:
+> 👉   Gold Line:
 > “Use Queue for flow, Deque for stack behavior, PriorityQueue for business priority.”
 
 ---
 
-# 🔥 Thread-Safe Collections — 30 SECOND INTERVIEW NOTES
+# 🔥 Thread-Safe Collections  
 
 ## ✅ Definition
 
@@ -282,7 +282,7 @@
 > not simple exact O(1) field read
 > uses aggregated counters
 
-## ⚡ Interview Quick Comparison
+## ⚡   Quick Comparison
 
 | Type                  | Locking       | Read Scale      | Best Use        |
 | --------------------- | ------------- | --------------- | --------------- |
@@ -299,7 +299,7 @@
 * ❌ Saying concurrent iterator = immutable
 * ❌ assuming size() is exact O(1)
 
-> 👉 Interview Tip: Prefer concurrent collections in microservices
+> 👉   Tip: Prefer concurrent collections in microservices
 
 ## 🌍 Real-World Example
 
@@ -314,7 +314,7 @@
 
 > “Thread-safe collections are required when multiple threads access shared mutable data. Synchronized wrappers use a single global lock, which is safe but does not scale well. Concurrent collections like ConcurrentHashMap use fine-grained locking and CAS, making reads mostly lock-free and much faster under load. In banking systems, they are heavily used for token stores, fraud rule caches, OTP throttling, and retry pipelines.”
 
-> 👉 Interview Gold Line:
+> 👉   Gold Line:
 > “For shared mutable state, default to concurrent collections, not synchronized wrappers.”
 
 ---
